@@ -15,15 +15,13 @@ namespace VideoSurvey
         public Form2()
         {
             InitializeComponent();
+
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            Form2 newMDIChild = new Form2();
-            // Set the Parent Form of the Child window.  
-            newMDIChild.MdiParent = this;
-            // Display the new form.  
-            newMDIChild.Show();
+            //Close Application at all
+            System.Windows.Forms.Application.Exit();
         }
     }
 }

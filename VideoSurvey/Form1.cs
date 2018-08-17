@@ -19,14 +19,14 @@ namespace VideoSurvey
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
-            form2.MdiParent = this;
+            Form2 form2 = new Form2();           
             form2.Show();
+            this.Visible = false;
         }
 
         private void toolStripTextBox1_Click(object sender, EventArgs e)
@@ -36,11 +36,7 @@ namespace VideoSurvey
 
         private void newToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Form1 newMDIChild = new Form1();
-            // Set the Parent Form of the Child window.  
-            newMDIChild.MdiParent = this;
-            // Display the new form.  
-            newMDIChild.Show();
+
         }
     }
 }
