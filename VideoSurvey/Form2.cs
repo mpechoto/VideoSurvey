@@ -23,5 +23,10 @@ namespace VideoSurvey
             //Close Application at all
             System.Windows.Forms.Application.Exit();
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
