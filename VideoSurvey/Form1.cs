@@ -34,7 +34,17 @@ namespace VideoSurvey
             //Create the folder "Records" if it does not exist. There's no need to do an explicit check first
             //This folder will record all user data
             Directory.CreateDirectory(path);
-            
+
+            //Set the new Current Directory to this path, it will be useful to create new subfolders.
+            try
+            {
+                Directory.SetCurrentDirectory(path);
+            }
+            catch (DirectoryNotFoundException exp)
+            {
+                Console.WriteLine("The specified directory does not exist. {0}", exp);
+            }
+
             //Debug purpose
             //MessageBox.Show(root.FullName);
 

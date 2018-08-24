@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,9 @@ namespace VideoSurvey
         private void button2_Click(object sender, EventArgs e)
         {
 
+
+            string folder = @"Record_" + textBox1.Text;
+            Directory.CreateDirectory(folder);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
