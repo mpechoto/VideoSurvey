@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace VideoSurvey
@@ -23,10 +25,18 @@ namespace VideoSurvey
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {   
+        {
+            //Get the Parent Path C:\Users\user\source\repos\VideoSurvey
+            DirectoryInfo root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
+            
+            string path = root.FullName + "\\Records";
 
-
-
+            //Create the folder "Records" if it does not exist. There's no need to do an explicit check first
+            //This folder will record all user data
+            Directory.CreateDirectory(path);
+            
+            //Debug purpose
+            //MessageBox.Show(root.FullName);
 
             Form2 form2 = new Form2();           
             form2.Show();
