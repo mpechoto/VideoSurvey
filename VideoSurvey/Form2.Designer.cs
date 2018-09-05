@@ -43,6 +43,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(194, 102);
             this.textBox1.Name = "textBox1";
@@ -87,7 +88,7 @@
             this.button1.Location = new System.Drawing.Point(403, 386);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(132, 50);
-            this.button1.TabIndex = 13;
+            this.button1.TabIndex = 10;
             this.button1.Text = "Cancelar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -109,7 +110,7 @@
             this.button2.Location = new System.Drawing.Point(194, 386);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(132, 50);
-            this.button2.TabIndex = 16;
+            this.button2.TabIndex = 9;
             this.button2.Text = "&Avançar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -130,7 +131,7 @@
             0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(56, 29);
-            this.numericUpDown1.TabIndex = 17;
+            this.numericUpDown1.TabIndex = 7;
             this.numericUpDown1.Value = new decimal(new int[] {
             18,
             0,
@@ -140,16 +141,19 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.AllowDrop = true;
+            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Feminino",
-            "Masculino",
-            "Outros"});
+            "FEMININO",
+            "MASCULINO"});
             this.comboBox1.Location = new System.Drawing.Point(194, 180);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 32);
-            this.comboBox1.TabIndex = 20;
+            this.comboBox1.Size = new System.Drawing.Size(134, 32);
+            this.comboBox1.TabIndex = 8;
             // 
             // Form2
             // 

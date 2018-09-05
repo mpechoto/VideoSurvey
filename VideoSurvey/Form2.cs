@@ -40,22 +40,23 @@ namespace VideoSurvey
 
         }
 
-        private void Create_Folder()
+        private string Create_Folder()
         {
             int current = 0;
+            int next = 0;
             try
             {
-                List<string> dirs = new List<string>(Directory.EnumerateDirectories(Directory.GetCurrentDirectory(),));
+                List<string> dirs = new List<string>(Directory.EnumerateDirectories(Directory.GetCurrentDirectory()));
                 foreach (var dir in dirs)
                 {
-                    //string subs = dir.Substring(dir.IndexOf("_") + 1 , dir.IndexOf("@"));
                     var subs = dir.Split('_');
-                    var subss = subs[1];
-                    Console.WriteLine(subss);
-                    current = Int32.Parse(subss);
-                   // Console.WriteLine("{0}", current);
+                    current = Int32.Parse(subs[1]);
+                    
+                    if (next < current)
+                    {
+                        next = current;
+                    }
                 }
-                //Console.WriteLine("{0} directories found.", dirs.Count);
             }
             catch (UnauthorizedAccessException UAEx)
             {
@@ -68,15 +69,34 @@ namespace VideoSurvey
             
             string date = DateTime.Now.ToString("dd-MM-yyyy_HH-mm");
             //Console.WriteLine(date);
-            int next = current + 1;
+            next += 1;
             string folder = @"Record_" + next + "_@" + date;
             Directory.CreateDirectory(folder);
+            return folder;
+        }
+
+        private void Write_Id(string path)
+        {
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Create_Folder();
+            string folder_name = Create_Folder();
+            string path = Directory.GetCurrentDirectory() + "\\" + folder_name;
 
+            StreamWriter writer = new StreamWriter(path + "\\id.txt", append: true);
+            using (writer)
+            {
+                writer.WriteLine(textBox1.Text);
+                writer.WriteLine(numericUpDown1.Value);
+                writer.WriteLine(comboBox1.Text);
+            }
+            writer.Close();
+
+            Form3 form3 = new Form3();
+            form3.Show();
+            this.Visible = false;
 
         }
 
