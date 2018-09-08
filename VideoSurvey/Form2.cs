@@ -75,9 +75,38 @@ namespace VideoSurvey
             return folder;
         }
 
-        private void Write_Id(string path)
+        private void Write_Info(string path, List<string> list)
         {
+            StreamWriter writer = new StreamWriter(path + "\\id.txt", append: true);
+            using (writer)
+            {
+                writer.WriteLine(textBox1.Text);
+                writer.WriteLine(numericUpDown1.Value);
+                writer.WriteLine(comboBox1.Text);
+                foreach (String s in list)
+                    writer.WriteLine(s);
+            }
+            writer.Close();
+        }
 
+        private List<string> VideoRandomList()
+        {
+            DirectoryInfo root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent;
+            string path = root.FullName + @"\public\";
+            Console.WriteLine("path {0}",path);
+
+            List<string> fileList = new List<string>(Directory.GetFiles(path));         
+            List<string> randomList = new List<string>();
+            Random rand = new Random();
+            int randomIndex = 0;
+
+            while (fileList.Count > 0)
+            {
+                randomIndex = rand.Next(0, fileList.Count);//Choose a random object in the list
+                randomList.Add(fileList[randomIndex]);//add it to the new, random list
+                fileList.RemoveAt(randomIndex);//remove to avoid duplicates
+            }            
+            return randomList; //return the new random list
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -85,14 +114,11 @@ namespace VideoSurvey
             string folder_name = Create_Folder();
             string path = Directory.GetCurrentDirectory() + "\\" + folder_name;
 
-            StreamWriter writer = new StreamWriter(path + "\\id.txt", append: true);
-            using (writer)
-            {
-                writer.WriteLine(textBox1.Text);
-                writer.WriteLine(numericUpDown1.Value);
-                writer.WriteLine(comboBox1.Text);
-            }
-            writer.Close();
+            List<string> videoRandomList = VideoRandomList();
+
+            //foreach (String s in videoRandomList)
+                //Console.WriteLine("after " + s);
+            Write_Info(path, videoRandomList);
 
             Form3 form3 = new Form3();
             form3.Show();

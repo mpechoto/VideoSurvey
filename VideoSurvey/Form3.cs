@@ -12,9 +12,34 @@ namespace VideoSurvey
 {
     public partial class Form3 : Form
     {
+
         public Form3()
         {
             InitializeComponent();
+            Timer(2);           
+            
+        }
+
+        public void Timer(int time)
+        {
+            Timer clock = new Timer();
+            clock.Interval = 1000;
+
+            clock.Tick += delegate
+            {
+                time -= 1;
+                label2.Text = time.ToString();
+                                
+                if (time == 0)
+                {
+                    clock.Stop();
+                    Form5 form5 = new Form5();
+                    form5.Show();
+                    this.Visible = false;
+                }
+            };
+            clock.Start();
+            
         }
     }
 }
