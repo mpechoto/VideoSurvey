@@ -13,22 +13,22 @@ namespace VideoSurvey
 {
     public partial class Form5 : Form
     {
+       public static int video_number = 3;
+
         public Form5()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         
 
         private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
         {
+            string[] lines = System.IO.File.ReadAllLines(Form2.path + "\\id.txt");
             
-
-            //string video = VideoRandomSelection(path);
-            //Console.WriteLine(video);
-
-            //axWindowsMediaPlayer1.URL = video;
+            axWindowsMediaPlayer1.URL = lines[video_number];//continuar daqui, vetor de videos
             axWindowsMediaPlayer1.settings.volume = 100;
+
         }
     }
 }

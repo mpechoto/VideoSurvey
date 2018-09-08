@@ -13,10 +13,12 @@ namespace VideoSurvey
 {
     public partial class Form2 : Form
     {
+        public static string path;
+
         public Form2()
         {
             InitializeComponent();
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -93,7 +95,7 @@ namespace VideoSurvey
         {
             DirectoryInfo root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent;
             string path = root.FullName + @"\public\";
-            Console.WriteLine("path {0}",path);
+            //Console.WriteLine("path {0}",path);
 
             List<string> fileList = new List<string>(Directory.GetFiles(path));         
             List<string> randomList = new List<string>();
@@ -112,14 +114,13 @@ namespace VideoSurvey
         private void button2_Click(object sender, EventArgs e)
         {
             string folder_name = Create_Folder();
-            string path = Directory.GetCurrentDirectory() + "\\" + folder_name;
+            path = Directory.GetCurrentDirectory() + "\\" + folder_name;
 
             List<string> videoRandomList = VideoRandomList();
-
             //foreach (String s in videoRandomList)
                 //Console.WriteLine("after " + s);
             Write_Info(path, videoRandomList);
-
+            //Console.WriteLine(path);
             Form3 form3 = new Form3();
             form3.Show();
             this.Visible = false;
