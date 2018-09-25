@@ -12,12 +12,12 @@ namespace VideoSurvey
 {
     public partial class Form3 : Form
     {
+        
 
         public Form3()
         {
             InitializeComponent();
-            Timer(2);           
-            
+            Timer(6);
         }
 
         public void Timer(int time)

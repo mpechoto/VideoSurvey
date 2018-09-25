@@ -16,7 +16,11 @@ namespace VideoSurvey
         public Form1()
         {
             InitializeComponent();
+            
         }
+
+        public PXCMSession session;
+        //public PXCMSession session = PXCMSession.CreateInstance();
 
         private void button2_Click(object sender, EventArgs e)
         {
