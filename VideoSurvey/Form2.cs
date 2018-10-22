@@ -14,32 +14,25 @@ namespace VideoSurvey
     public partial class Form2 : Form
     {
         public static string path;
+        PXCMSenseManager senseManager;
+        public PXCMCapture.DeviceInfo DeviceInfo { get; set; }
 
         public Form2()
         {
+            InitializeComponent();            
+        }
+        public Form2(PXCMSenseManager senseManager, PXCMCapture.DeviceInfo DeviceInfo)
+        {
             InitializeComponent();
-            
+            this.senseManager = senseManager;
+            this.DeviceInfo = DeviceInfo;
+            Console.WriteLine(DeviceInfo.name);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //Close Application at all
             System.Windows.Forms.Application.Exit();
-        }
-               
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private string Create_Folder()
@@ -114,24 +107,19 @@ namespace VideoSurvey
         private void button2_Click(object sender, EventArgs e)
         {
             string folder_name = Create_Folder();
-            path = Directory.GetCurrentDirectory() + "\\" + folder_name;
+            // string 
+                path = Directory.GetCurrentDirectory() + "\\" + folder_name;
 
             List<string> videoRandomList = VideoRandomList();
             //foreach (String s in videoRandomList)
                 //Console.WriteLine("after " + s);
             Write_Info(path, videoRandomList);
             //Console.WriteLine(path);
-            Form3 form3 = new Form3();
+
+            Form3 form3 = new Form3(senseManager, DeviceInfo, path);
             form3.Show();
             this.Visible = false;
 
         }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-     
     }
 }

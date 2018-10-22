@@ -49,7 +49,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(341, 29);
             this.textBox1.TabIndex = 6;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
             // 
@@ -80,7 +79,6 @@
             this.label3.Size = new System.Drawing.Size(59, 24);
             this.label3.TabIndex = 11;
             this.label3.Text = "Sexo:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // button1
             // 
@@ -137,7 +135,6 @@
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // comboBox1
             // 
@@ -177,7 +174,6 @@
             this.Text = "Video Survey - Identificação";
             this.TransparencyKey = System.Drawing.Color.White;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

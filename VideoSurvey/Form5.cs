@@ -8,27 +8,119 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using AxWMPLib;
+using System.Threading;
 
 namespace VideoSurvey
 {
     public partial class Form5 : Form
     {
-       public static int video_number = 3;
+        public static int video_number = 3;
+        //public Thread MyThread { get; private set; }
+        Form3 form;
 
         public Form5()
+        {           
+            InitializeComponent();                       
+        }
+        public Form5(Form3 form3)
         {
+            this.form = form3;
             InitializeComponent();            
         }
 
-        
 
         private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
         {
             string[] lines = System.IO.File.ReadAllLines(Form2.path + "\\id.txt");
-            
-            axWindowsMediaPlayer1.URL = lines[video_number];//continuar daqui, vetor de videos
-            axWindowsMediaPlayer1.settings.volume = 100;
 
+            player.URL = lines[video_number];//continuar daqui, vetor de videos
+            player.settings.volume = 100;
+            
+            // Add a delegate for the PlayStateChange event.
+            player.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(player_PlayStateChange);
+        }
+
+        private void player_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            // Test the current state of the player and display a message for each state.
+            switch (e.newState)
+            {
+                case 0:    // Undefined
+                    label1.Text = "Undefined";
+                    Console.WriteLine("Undefined");
+                    break;
+
+                case 1:    // Stopped
+                    label1.Text = "Stopped";
+                    Console.WriteLine("Stopped");
+                    //form.StopStream(); //Stop Threading
+
+                    Form6 form6 = new Form6(form);
+                    form6.Show();
+                    this.Visible = false;
+                    break;
+
+                case 2:    // Paused
+                    label1.Text = "Paused";
+                    Console.WriteLine("Paused");
+                    break;
+
+                case 3:    // Playing
+                    label1.Text = "Playing";
+                    Console.WriteLine("Playing");
+                    break;
+
+                case 4:    // ScanForward
+                    label1.Text = "ScanForward";
+                    Console.WriteLine("ScanForward");
+                    break;
+
+                case 5:    // ScanReverse
+                    label1.Text = "ScanReverse";
+                    Console.WriteLine("ScanReverse");
+                    break;
+
+                case 6:    // Buffering
+                    label1.Text = "Buffering";
+                    Console.WriteLine("Buffering");
+                    break;
+
+                case 7:    // Waiting
+                    label1.Text = "Waiting";
+                    Console.WriteLine("Waiting");
+                    break;
+
+                case 8:    // MediaEnded                    
+                    label1.Text = "MediaEnded";
+                    Console.WriteLine("MediaEnded");
+                    break;
+
+                case 9:    // Transitioning
+                    label1.Text = "Transitioning";
+                    Console.WriteLine("Transitioning");
+                    break;
+
+                case 10:   // Ready
+                    label1.Text = "Ready";
+                    Console.WriteLine("Ready");
+                    break;
+
+                case 11:   // Reconnecting
+                    label1.Text = "Reconnecting";
+                    Console.WriteLine("Reconnecting");
+                    break;
+
+                case 12:   // Last
+                    label1.Text = "Last";
+                    Console.WriteLine("Last");
+                    break;
+
+                default:
+                    label1.Text = "Unknown State: " + e.newState.ToString();
+                    Console.WriteLine("Unknown State");
+                    break;
+            }            
         }
     }
 }

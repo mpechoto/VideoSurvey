@@ -16,7 +16,13 @@ namespace VideoSurvey
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            // Creating a SDK session
+            PXCMSession session = PXCMSession.CreateInstance();
+            if (session != null)
+            {
+                Application.Run(new Form1(session));
+                session.Dispose();
+            }
         }
     }
 }
