@@ -17,14 +17,17 @@ namespace VideoSurvey
         PXCMSenseManager senseManager;
         public PXCMCapture.DeviceInfo DeviceInfo { get; set; }
 
+        RealSenseImageStream imageStream;
+
         public Form2()
         {
             InitializeComponent();            
         }
-        public Form2(PXCMSenseManager senseManager, PXCMCapture.DeviceInfo DeviceInfo)
+        public Form2(RealSenseImageStream imageStream, PXCMCapture.DeviceInfo DeviceInfo)
         {
             InitializeComponent();
-            this.senseManager = senseManager;
+            this.imageStream = imageStream;
+            //this.senseManager = senseManager;
             this.DeviceInfo = DeviceInfo;
             Console.WriteLine(DeviceInfo.name);
         }
@@ -87,7 +90,7 @@ namespace VideoSurvey
         private List<string> VideoRandomList()
         {
             DirectoryInfo root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent;
-            string path = root.FullName + @"\public\";
+            string path = root.FullName + @"\VideoSurvey\public\";
             //Console.WriteLine("path {0}",path);
 
             List<string> fileList = new List<string>(Directory.GetFiles(path));         

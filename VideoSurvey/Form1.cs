@@ -13,22 +13,31 @@ namespace VideoSurvey
 {
     public partial class Form1 : Form
     {
-        PXCMSession session;
-        PXCMSenseManager senseManager;
+        //PXCMSession session;
+        //PXCMSenseManager senseManager;
+
+        RealSenseImageStream imageStream;
+        FileManager fileManager;
+
         public PXCMCapture.DeviceInfo DeviceInfo { get; set; }
         private Dictionary<ToolStripMenuItem, PXCMCapture.DeviceInfo> devices = new Dictionary<ToolStripMenuItem, PXCMCapture.DeviceInfo>();
         private Dictionary<ToolStripMenuItem, int> devices_iuid = new Dictionary<ToolStripMenuItem, int>();
 
-        public Form1(PXCMSession ses)
+        public Form1()
         {
             InitializeComponent();
-            CreateSenseManager(ses);
+
+            imageStream = new RealSenseImageStream(new PXCMCapture.StreamType[] { PXCMCapture.StreamType.STREAM_TYPE_COLOR, PXCMCapture.StreamType.STREAM_TYPE_DEPTH });
+            imageStream.InitializeStream();
+            label1.Text = imageStream.Status_pipeline;
+
+            //CreateSenseManager(ses);
             //session = ses;
             CheckDevices();
             //sm = session.CreateSenseManager();
         }
 
-        public void CreateSenseManager(PXCMSession ses)
+        /*public void CreateSenseManager(PXCMSession ses)
         {
             // Creating a SDK session
             //session = PXCMSession.CreateInstance();
@@ -43,7 +52,7 @@ namespace VideoSurvey
             }
             else
                 label1.Text = "Pipeline created";
-        }
+        }*/
 
         private void CheckDevices()
         {
@@ -57,17 +66,14 @@ namespace VideoSurvey
             devicesToolStripMenuItem.DropDownItems.Clear();
 
             for (int i = 0; ; i++)
-            {
-                PXCMSession.ImplDesc desc1;
-                if (session.QueryImpl(desc, i, out desc1) < pxcmStatus.PXCM_STATUS_NO_ERROR)
-                    break;
-                PXCMCapture capture;
-                if (session.CreateImpl<PXCMCapture>(desc1, out capture) < pxcmStatus.PXCM_STATUS_NO_ERROR)
+            {                
+                if (imageStream.Session.QueryImpl(desc, i, out PXCMSession.ImplDesc desc1) < pxcmStatus.PXCM_STATUS_NO_ERROR)
+                    break;                
+                if (imageStream.Session.CreateImpl<PXCMCapture>(desc1, out PXCMCapture capture) < pxcmStatus.PXCM_STATUS_NO_ERROR)
                     continue;
                 for (int j = 0; ; j++)
-                {
-                    PXCMCapture.DeviceInfo dinfo;
-                    if (capture.QueryDeviceInfo(j, out dinfo) < pxcmStatus.PXCM_STATUS_NO_ERROR)
+                {                    
+                    if (capture.QueryDeviceInfo(j, out PXCMCapture.DeviceInfo dinfo) < pxcmStatus.PXCM_STATUS_NO_ERROR)
                         break;
 
                     ToolStripMenuItem sm1 = new ToolStripMenuItem(dinfo.name, null, new EventHandler(Device_Item_Click));
@@ -127,7 +133,7 @@ namespace VideoSurvey
             //Debug purpose
             //MessageBox.Show(root.FullName);
             DeviceInfo = GetCheckedDevice();
-            Form2 form2 = new Form2(senseManager, DeviceInfo);           
+            Form2 form2 = new Form2(imageStream, DeviceInfo);           
             form2.Show();
             this.Visible = false;
         }

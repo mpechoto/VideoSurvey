@@ -17,7 +17,7 @@ namespace VideoSurvey
         PXCMCapture.DeviceInfo DeviceInfo { get; set; }
         public PXCMCapture.StreamType StreamType { get; private set; }
 
-        public float FPS = 60;
+        public float FPS = 30;
         public int height = 480;
         public int width = 640;
         int timer = 6; //6 seconds
@@ -111,19 +111,20 @@ namespace VideoSurvey
             //Enabling the stream
             //STREAM_TYPE_COLOR
             StreamType = PXCMCapture.StreamType.STREAM_TYPE_COLOR;
-            pxcmStatus enableStreamStatus = senseManager.EnableStream(StreamType, width, height, FPS);
+            pxcmStatus enableStreamStatus = senseManager.EnableStream(StreamType, width, height, 0);
             if (enableStreamStatus != pxcmStatus.PXCM_STATUS_NO_ERROR)
             {
                 throw new InvalidRealSenseStatusException(enableStreamStatus, string.Format("Failed to enable the {0} stream. Return code: {1}", StreamType, enableStreamStatus));
             }
             //STREAM_TYPE_DEPTH 
-            StreamType = PXCMCapture.StreamType.STREAM_TYPE_DEPTH;
-            enableStreamStatus = senseManager.EnableStream(StreamType, width, height, FPS);
-            if (enableStreamStatus != pxcmStatus.PXCM_STATUS_NO_ERROR)
-            {
-                throw new InvalidRealSenseStatusException(enableStreamStatus, string.Format("Failed to enable the {0} stream. Return code: {1}", StreamType, enableStreamStatus));
-            }
+            //StreamType = PXCMCapture.StreamType.STREAM_TYPE_DEPTH;
+            //enableStreamStatus = senseManager.EnableStream(StreamType, width, height, FPS);
+            //if (enableStreamStatus != pxcmStatus.PXCM_STATUS_NO_ERROR)
+            //{
+            //    throw new InvalidRealSenseStatusException(enableStreamStatus, string.Format("Failed to enable the {0} stream. Return code: {1}", StreamType, enableStreamStatus));
+            //}            
 
+            Console.WriteLine(DeviceInfo.name);
             senseManager.captureManager.FilterByDeviceInfo(DeviceInfo);
             
             // Initializing the SenseManager
