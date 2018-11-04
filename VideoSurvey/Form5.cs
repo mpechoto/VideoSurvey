@@ -18,14 +18,15 @@ namespace VideoSurvey
         public static int video_number = 3;
         //public Thread MyThread { get; private set; }
         Form3 form;
+        RealSenseImageStream imageStream;
 
         public Form5()
         {           
             InitializeComponent();                       
         }
-        public Form5(Form3 form3)
+        public Form5(RealSenseImageStream imageStream)
         {
-            this.form = form3;
+            this.imageStream = imageStream;
             InitializeComponent();            
         }
 
@@ -56,7 +57,7 @@ namespace VideoSurvey
                     Console.WriteLine("Stopped");
                     //form.StopStream(); //Stop Threading
 
-                    Form6 form6 = new Form6(form);
+                    Form6 form6 = new Form6(imageStream);
                     form6.Show();
                     this.Visible = false;
                     break;

@@ -18,8 +18,7 @@ namespace VideoSurvey
 
         RealSenseImageStream imageStream;
         FileManager fileManager;
-
-        public PXCMCapture.DeviceInfo DeviceInfo { get; set; }
+        
         private Dictionary<ToolStripMenuItem, PXCMCapture.DeviceInfo> devices = new Dictionary<ToolStripMenuItem, PXCMCapture.DeviceInfo>();
         private Dictionary<ToolStripMenuItem, int> devices_iuid = new Dictionary<ToolStripMenuItem, int>();
 
@@ -27,8 +26,9 @@ namespace VideoSurvey
         {
             InitializeComponent();
 
-            imageStream = new RealSenseImageStream(new PXCMCapture.StreamType[] { PXCMCapture.StreamType.STREAM_TYPE_COLOR, PXCMCapture.StreamType.STREAM_TYPE_DEPTH });
-            imageStream.InitializeStream();
+            imageStream = new RealSenseImageStream(new PXCMCapture.StreamType[] 
+                { PXCMCapture.StreamType.STREAM_TYPE_COLOR/*, PXCMCapture.StreamType.STREAM_TYPE_DEPTH*/ });
+            imageStream.InitializeStream(640,480,30);
             label1.Text = imageStream.Status_pipeline;
 
             //CreateSenseManager(ses);
@@ -132,8 +132,8 @@ namespace VideoSurvey
             }
             //Debug purpose
             //MessageBox.Show(root.FullName);
-            DeviceInfo = GetCheckedDevice();
-            Form2 form2 = new Form2(imageStream, DeviceInfo);           
+            imageStream.DeviceInfo = GetCheckedDevice();
+            Form2 form2 = new Form2(imageStream);           
             form2.Show();
             this.Visible = false;
         }

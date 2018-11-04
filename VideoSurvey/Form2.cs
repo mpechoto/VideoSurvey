@@ -13,23 +13,20 @@ namespace VideoSurvey
 {
     public partial class Form2 : Form
     {
-        public static string path;
-        PXCMSenseManager senseManager;
-        public PXCMCapture.DeviceInfo DeviceInfo { get; set; }
-
+        public static string path;        
         RealSenseImageStream imageStream;
 
         public Form2()
         {
             InitializeComponent();            
         }
-        public Form2(RealSenseImageStream imageStream, PXCMCapture.DeviceInfo DeviceInfo)
+        public Form2(RealSenseImageStream imageStream)
         {
             InitializeComponent();
             this.imageStream = imageStream;
             //this.senseManager = senseManager;
-            this.DeviceInfo = DeviceInfo;
-            Console.WriteLine(DeviceInfo.name);
+            //this.DeviceInfo = DeviceInfo;
+            Console.WriteLine(imageStream.DeviceInfo.name);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -119,7 +116,7 @@ namespace VideoSurvey
             Write_Info(path, videoRandomList);
             //Console.WriteLine(path);
 
-            Form3 form3 = new Form3(senseManager, DeviceInfo, path);
+            Form3 form3 = new Form3(imageStream, imageStream.DeviceInfo, path);
             form3.Show();
             this.Visible = false;
 

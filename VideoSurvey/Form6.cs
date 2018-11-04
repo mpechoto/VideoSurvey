@@ -12,12 +12,12 @@ namespace VideoSurvey
 {
     public partial class Form6 : Form
     {
-        Form3 form;
+        RealSenseImageStream imageStream;
 
-        public Form6(Form3 form3)
+        public Form6(RealSenseImageStream imageStream)
         {
             InitializeComponent();
-            form = form3;
+            this.imageStream = imageStream;
             
             Timer(6);
         }
@@ -36,7 +36,7 @@ namespace VideoSurvey
                 if (time == 0)
                 {
                     clock.Stop();
-                    form.StopStream(); //Stop Threading
+                    imageStream.StopStream(); //Stop Threading
                     //Close Application at all
                     System.Windows.Forms.Application.Exit();
                 }

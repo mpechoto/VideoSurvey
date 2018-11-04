@@ -13,9 +13,11 @@ namespace VideoSurvey
 {
     public partial class Form3 : Form
     {
-        PXCMSenseManager senseManager;
-        PXCMCapture.DeviceInfo DeviceInfo { get; set; }
+        //PXCMSenseManager senseManager;
+        //PXCMCapture.DeviceInfo DeviceInfo { get; set; }
         public PXCMCapture.StreamType StreamType { get; private set; }
+
+        RealSenseImageStream imageStream;
 
         public float FPS = 30;
         public int height = 480;
@@ -30,19 +32,21 @@ namespace VideoSurvey
         {
             InitializeComponent(); 
         }
-        public Form3(PXCMSenseManager senseManager, PXCMCapture.DeviceInfo DeviceInfo, string path)
+
+        public Form3(RealSenseImageStream imageStream, PXCMCapture.DeviceInfo DeviceInfo, string path)
         {
             InitializeComponent();
-            this.senseManager = senseManager;
-            this.DeviceInfo = DeviceInfo;
+            this.imageStream = imageStream;            
             this.path = path;
-            ConfigStream();
-            StartStream();
+            imageStream.RecordStream(path+"\\teste.rssdk");
+            imageStream.StartStream();
+            //ConfigStream();
+            //StartStream();
             //timer1.Start();
             Timer(6);
         }
 
-        public void StartStream()
+        /*public void StartStream()
         {
             if (senseManager == null)
             {
@@ -135,17 +139,8 @@ namespace VideoSurvey
             {
                 throw new InvalidRealSenseStatusException(enableStreamStatus, string.Format("Failed to initialize the SenseManager. Return code: {0}", initSenseManagerStatus));
             }            
-        }
-
-        public class InvalidRealSenseStatusException : Exception
-        {
-            public pxcmStatus InvalidStatus { get; private set; }
-
-            public InvalidRealSenseStatusException(pxcmStatus status, string message) : base(message)
-            {
-                InvalidStatus = status;
-            }
-        }
+        }*/
+      
 
         public void Timer(int time)
         {
@@ -160,7 +155,7 @@ namespace VideoSurvey
                 if (time == 0)
                 {
                     clock.Stop();
-                    Form5 form5 = new Form5(this);
+                    Form5 form5 = new Form5(imageStream);
                     form5.Show();
                     this.Visible = false;
                 }

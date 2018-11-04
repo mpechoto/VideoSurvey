@@ -14,7 +14,7 @@ namespace VideoSurvey
         public PXCMSession Session { get; private set; }
         public PXCMSenseManager SenseManager { get; private set; }
         public PXCMCapture.StreamType[] StreamType { get; private set; }
-
+        public PXCMCapture.DeviceInfo DeviceInfo { get; set; }
         #endregion
 
         #region Stream parameters
@@ -32,6 +32,7 @@ namespace VideoSurvey
         public bool IsRunning { get; private set; }
         public Thread CaptureThread { get; private set; }
         public string Status_pipeline { get; private set; }
+        
 
         public RealSenseImageStream(PXCMCapture.StreamType[] streamType)
         {
@@ -106,6 +107,11 @@ namespace VideoSurvey
                 }
             });
             CaptureThread.Start();
+        }
+
+        public void RecordStream(string fileName, bool record=true)
+        {
+            SenseManager.captureManager.SetFileName(fileName, record);
         }
 
         public void StopStream()
