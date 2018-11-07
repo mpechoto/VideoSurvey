@@ -31,6 +31,8 @@ namespace VideoSurvey
             imageStream.InitializeStream(640,480,30);
             label1.Text = imageStream.Status_pipeline;
 
+            fileManager = new FileManager();
+
             //CreateSenseManager(ses);
             //session = ses;
             CheckDevices();
