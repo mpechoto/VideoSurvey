@@ -60,6 +60,7 @@ namespace VideoSurvey
             else
                 Status_pipeline = "Pipeline created";
             
+
             foreach (var stream in StreamType)
             {
                 // Enabling the stream
@@ -74,6 +75,8 @@ namespace VideoSurvey
 
         public void StartStream()
         {
+            SenseManager.captureManager.FilterByDeviceInfo(DeviceInfo);
+
             // Initializing the SenseManager
             pxcmStatus initSenseManagerStatus = SenseManager.Init();
 
@@ -111,7 +114,7 @@ namespace VideoSurvey
 
         public void SetFileName(string fileName, bool record=true)
         {
-            SenseManager.captureManager.SetFileName(fileName, record);
+            pxcmStatus setFileName = SenseManager.captureManager.SetFileName(fileName, record);
         }
 
         public void StopStream()
@@ -138,6 +141,7 @@ namespace VideoSurvey
                 //CaptureThread.Join();
                 //CaptureThread = null;
                 SenseManager.Dispose();
+                Session.Dispose();
             }
         }
 

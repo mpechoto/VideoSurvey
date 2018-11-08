@@ -17,9 +17,10 @@ namespace VideoSurvey
         public string RecordsPath { get; private set; }
         public string VideosPath { get; private set; }
         public string FileName { get; set; }
-        public string CurrentVideo { get; set; }
+        //public string CurrentVideo { get; set; }
         public string NextVideo { get; set; }
-        public int cont = 0;
+        public int Cont = 0;
+        public int Qtde = 0;
 
         public FileManager()
         {
@@ -109,13 +110,18 @@ namespace VideoSurvey
             if (Record == null)
             {
                 Record = LoadJson(System.IO.Path.Combine(CurrentPath, FileName));
-                CurrentVideo = Record.Videos[cont];
-                return CurrentVideo;
-            }
-            else
-            {
-                NextVideo = Record.Videos[cont++];
+                NextVideo = Record.Videos[Cont++];
+                Qtde = Record.Videos.Count;
                 return NextVideo;
+            }
+            else 
+            {
+                if (Cont < Qtde)
+                {
+                    NextVideo = Record.Videos[Cont++];
+                    return NextVideo;
+                }
+                else return "end";
             }          
         }
 

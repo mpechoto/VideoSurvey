@@ -13,16 +13,17 @@ namespace VideoSurvey
     public partial class Form6 : Form
     {
         RealSenseImageStream imageStream;
+        FileManager fileManager;
 
-        public Form6(RealSenseImageStream imageStream)
+        public Form6(RealSenseImageStream imageStream, FileManager fileManager)
         {
             InitializeComponent();
             this.imageStream = imageStream;
+            this.fileManager = fileManager;
             
             Timer(6);
         }
-
-
+        
         public void Timer(int time)
         {
             System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
@@ -37,8 +38,16 @@ namespace VideoSurvey
                 {
                     clock.Stop();
                     imageStream.StopStream(); //Stop Threading
+
+                    if (fileManager.Cont < fileManager.Qtde)
+                    {
+                        Form3 form3 = new Form3(imageStream, fileManager);
+                        form3.Show();
+                        this.Visible = false;
+                    }
+                    else
                     //Close Application at all
-                    System.Windows.Forms.Application.Exit();
+                        System.Windows.Forms.Application.Exit();
                 }
             };
             clock.Start();

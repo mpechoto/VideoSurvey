@@ -38,7 +38,7 @@ namespace VideoSurvey
             //string[] lines = System.IO.File.ReadAllLines(Form2.path + "\\id.txt");
 
             //player.URL = lines[video_number];//continuar daqui, vetor de videos
-            player.URL = fileManager.GetNextVideo();
+            player.URL = fileManager.NextVideo;
             player.settings.volume = 100;
             
             // Add a delegate for the PlayStateChange event.
@@ -60,7 +60,7 @@ namespace VideoSurvey
                     Console.WriteLine("Stopped");
                     //form.StopStream(); //Stop Threading
 
-                    Form6 form6 = new Form6(imageStream);
+                    Form6 form6 = new Form6(imageStream,fileManager);
                     form6.Show();
                     this.Visible = false;
                     break;
