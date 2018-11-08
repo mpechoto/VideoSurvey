@@ -18,13 +18,13 @@ namespace VideoSurvey
         public PXCMCapture.StreamType StreamType { get; private set; }
 
         RealSenseImageStream imageStream;
+        FileManager fileManager;
 
         public float FPS = 30;
         public int height = 480;
         public int width = 640;
         int timer = 6; //6 seconds
-
-        string path;
+        
         public bool IsRunning { get; private set; }
         public Thread CaptureThread { get; private set; }
 
@@ -33,12 +33,12 @@ namespace VideoSurvey
             InitializeComponent(); 
         }
 
-        public Form3(RealSenseImageStream imageStream, PXCMCapture.DeviceInfo DeviceInfo, string path)
+        public Form3(RealSenseImageStream imageStream, FileManager fileManager)
         {
             InitializeComponent();
-            this.imageStream = imageStream;            
-            this.path = path;
-            imageStream.RecordStream(path+"\\teste.rssdk");
+            this.imageStream = imageStream;
+            this.fileManager = fileManager;
+            imageStream.SetFileName(fileManager.CurrentPath + "\\teste.rssdk");
             imageStream.StartStream();
             //ConfigStream();
             //StartStream();
@@ -155,7 +155,7 @@ namespace VideoSurvey
                 if (time == 0)
                 {
                     clock.Stop();
-                    Form5 form5 = new Form5(imageStream);
+                    Form5 form5 = new Form5(imageStream, fileManager);
                     form5.Show();
                     this.Visible = false;
                 }

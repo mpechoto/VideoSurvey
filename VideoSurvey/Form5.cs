@@ -15,27 +15,30 @@ namespace VideoSurvey
 {
     public partial class Form5 : Form
     {
-        public static int video_number = 3;
+       // public static int video_number = 3;
         //public Thread MyThread { get; private set; }
-        Form3 form;
+        //Form3 form;
         RealSenseImageStream imageStream;
+        FileManager fileManager;
 
         public Form5()
         {           
             InitializeComponent();                       
         }
-        public Form5(RealSenseImageStream imageStream)
+        public Form5(RealSenseImageStream imageStream, FileManager fileManager)
         {
             this.imageStream = imageStream;
+            this.fileManager = fileManager;
             InitializeComponent();            
         }
 
 
         private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
         {
-            string[] lines = System.IO.File.ReadAllLines(Form2.path + "\\id.txt");
+            //string[] lines = System.IO.File.ReadAllLines(Form2.path + "\\id.txt");
 
-            player.URL = lines[video_number];//continuar daqui, vetor de videos
+            //player.URL = lines[video_number];//continuar daqui, vetor de videos
+            player.URL = fileManager.GetNextVideo();
             player.settings.volume = 100;
             
             // Add a delegate for the PlayStateChange event.

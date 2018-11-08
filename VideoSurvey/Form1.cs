@@ -27,8 +27,8 @@ namespace VideoSurvey
             InitializeComponent();
 
             imageStream = new RealSenseImageStream(new PXCMCapture.StreamType[] 
-                { PXCMCapture.StreamType.STREAM_TYPE_COLOR/*, PXCMCapture.StreamType.STREAM_TYPE_DEPTH*/ });
-            imageStream.InitializeStream(640,480,30);
+                { PXCMCapture.StreamType.STREAM_TYPE_COLOR, PXCMCapture.StreamType.STREAM_TYPE_DEPTH });
+            imageStream.InitializeStream();
             label1.Text = imageStream.Status_pipeline;
 
             fileManager = new FileManager();
@@ -114,28 +114,31 @@ namespace VideoSurvey
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+
+            fileManager.CreateRecordsFolder();
             //Get the Parent Path C:\Users\user\source\repos\VideoSurvey
-            DirectoryInfo root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
+            //DirectoryInfo root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
             
-            string path = root.FullName + "\\Records";
+            //string path = root.FullName + "\\Records";
 
             //Create the folder "Records" if it does not exist. There's no need to do an explicit check first
             //This folder will record all user data
-            Directory.CreateDirectory(path);
+            //Directory.CreateDirectory(path);
 
             //Set the new Current Directory to this path, it will be useful to create new subfolders.
-            try
+            /*try
             {
                 Directory.SetCurrentDirectory(path);
             }
             catch (DirectoryNotFoundException exp)
             {
                 Console.WriteLine("The specified directory does not exist. {0}", exp);
-            }
+            }*/
             //Debug purpose
             //MessageBox.Show(root.FullName);
             imageStream.DeviceInfo = GetCheckedDevice();
-            Form2 form2 = new Form2(imageStream);           
+            Form2 form2 = new Form2(imageStream, fileManager);           
             form2.Show();
             this.Visible = false;
         }

@@ -15,18 +15,20 @@ namespace VideoSurvey
     {
         public static string path;        
         RealSenseImageStream imageStream;
+        FileManager fileManager;        
 
         public Form2()
         {
             InitializeComponent();            
         }
-        public Form2(RealSenseImageStream imageStream)
+        public Form2(RealSenseImageStream imageStream, FileManager fileManager)
         {
             InitializeComponent();
             this.imageStream = imageStream;
+            this.fileManager = fileManager;
             //this.senseManager = senseManager;
             //this.DeviceInfo = DeviceInfo;
-            Console.WriteLine(imageStream.DeviceInfo.name);
+            //Console.WriteLine(imageStream.DeviceInfo.name);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -106,20 +108,27 @@ namespace VideoSurvey
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string folder_name = Create_Folder();
-            // string 
-                path = Directory.GetCurrentDirectory() + "\\" + folder_name;
+            if (textBox1.Text != String.Empty && comboBox1.Text != String.Empty)
+            {
+                Record record = new Record
+                {
+                    Name = textBox1.Text,
+                    Age = numericUpDown1.Value,
+                    Gender = comboBox1.Text,
+                    Videos = fileManager.VideoRandomList()
+                };
+                //Get the first name as the filename
+                fileManager.FileName = textBox1.Text.Split()[0] + ".txt";
+                
+                fileManager.CreateSampleFolder();
+                fileManager.WriteJson(fileManager.FileName, record);
 
-            List<string> videoRandomList = VideoRandomList();
-            //foreach (String s in videoRandomList)
-                //Console.WriteLine("after " + s);
-            Write_Info(path, videoRandomList);
-            //Console.WriteLine(path);
-
-            Form3 form3 = new Form3(imageStream, imageStream.DeviceInfo, path);
-            form3.Show();
-            this.Visible = false;
-
+                Form3 form3 = new Form3(imageStream, fileManager);
+                form3.Show();
+                this.Visible = false;
+            }
+            else
+                MessageBox.Show("Por favor, preencha todos os campos");
         }
     }
 }

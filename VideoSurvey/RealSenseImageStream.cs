@@ -109,7 +109,7 @@ namespace VideoSurvey
             CaptureThread.Start();
         }
 
-        public void RecordStream(string fileName, bool record=true)
+        public void SetFileName(string fileName, bool record=true)
         {
             SenseManager.captureManager.SetFileName(fileName, record);
         }
