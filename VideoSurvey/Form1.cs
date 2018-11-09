@@ -25,6 +25,7 @@ namespace VideoSurvey
         public Form1()
         {
             InitializeComponent();
+            this.FormClosing += new FormClosingEventHandler(Closing);
 
             imageStream = new RealSenseImageStream(new PXCMCapture.StreamType[] 
                 { PXCMCapture.StreamType.STREAM_TYPE_COLOR, PXCMCapture.StreamType.STREAM_TYPE_DEPTH });
@@ -64,7 +65,6 @@ namespace VideoSurvey
             PXCMSession.ImplDesc desc = new PXCMSession.ImplDesc();
             desc.group = PXCMSession.ImplGroup.IMPL_GROUP_SENSOR;
             desc.subgroup = PXCMSession.ImplSubgroup.IMPL_SUBGROUP_VIDEO_CAPTURE;
-
             devicesToolStripMenuItem.DropDownItems.Clear();
 
             for (int i = 0; ; i++)
@@ -77,7 +77,6 @@ namespace VideoSurvey
                 {                    
                     if (capture.QueryDeviceInfo(j, out PXCMCapture.DeviceInfo dinfo) < pxcmStatus.PXCM_STATUS_NO_ERROR)
                         break;
-
                     ToolStripMenuItem sm1 = new ToolStripMenuItem(dinfo.name, null, new EventHandler(Device_Item_Click));
                     devices[sm1] = dinfo;
                     devices_iuid[sm1] = desc1.iuid;
@@ -112,31 +111,21 @@ namespace VideoSurvey
             this.Close();
         }
 
+        private new void Closing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Tem certeza que deseja sair da aplicação?", "Sair",
+                MessageBoxButtons.YesNo,MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                System.Environment.Exit(0);
+            }
+            else
+                e.Cancel = true;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-
-
             fileManager.CreateRecordsFolder();
-            //Get the Parent Path C:\Users\user\source\repos\VideoSurvey
-            //DirectoryInfo root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
             
-            //string path = root.FullName + "\\Records";
-
-            //Create the folder "Records" if it does not exist. There's no need to do an explicit check first
-            //This folder will record all user data
-            //Directory.CreateDirectory(path);
-
-            //Set the new Current Directory to this path, it will be useful to create new subfolders.
-            /*try
-            {
-                Directory.SetCurrentDirectory(path);
-            }
-            catch (DirectoryNotFoundException exp)
-            {
-                Console.WriteLine("The specified directory does not exist. {0}", exp);
-            }*/
-            //Debug purpose
-            //MessageBox.Show(root.FullName);
             imageStream.DeviceInfo = GetCheckedDevice();
             Form2 form2 = new Form2(imageStream, fileManager);           
             form2.Show();

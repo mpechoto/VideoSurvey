@@ -19,39 +19,22 @@ namespace VideoSurvey
         {
             InitializeComponent();
             this.imageStream = imageStream;
-            this.fileManager = fileManager;
-            
-            Timer(6);
+            this.fileManager = fileManager;                      
         }
-        
-        public void Timer(int time)
+
+        private void Form6_Load(object sender, EventArgs e)
         {
-            System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
-            clock.Interval = 1000;
+            radioButton1.Checked = false;
+            radioButton2.Checked = false;
+            button1.Enabled = false;
+            
+        }
 
-            clock.Tick += delegate
-            {
-                time -= 1;
-                label2.Text = time.ToString();
-
-                if (time == 0)
-                {
-                    clock.Stop();
-                    imageStream.StopStream(); //Stop Threading
-
-                    if (fileManager.Cont < fileManager.Qtde)
-                    {
-                        Form3 form3 = new Form3(imageStream, fileManager);
-                        form3.Show();
-                        this.Visible = false;
-                    }
-                    else
-                    //Close Application at all
-                        System.Windows.Forms.Application.Exit();
-                }
-            };
-            clock.Start();
-
+        private void radio_CheckedChanged(object sender, EventArgs e)
+        {
+            //radioButton1.AutoCheck = true;
+            //radioButton2.AutoCheck = true;
+            button1.Enabled = true;
         }
     }
 }

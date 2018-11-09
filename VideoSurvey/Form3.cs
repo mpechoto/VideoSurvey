@@ -61,7 +61,7 @@ namespace VideoSurvey
                 if (time == 0)
                 {
                     clock.Stop();
-                    Form5 form5 = new Form5(imageStream, fileManager);
+                    Form4 form5 = new Form4(imageStream, fileManager);
                     form5.Show();
                     this.Visible = false;
                 }

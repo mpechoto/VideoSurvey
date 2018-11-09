@@ -43,7 +43,7 @@
             this.label1.Size = new System.Drawing.Size(333, 39);
             this.label1.TabIndex = 0;
             this.label1.Text = "Video se iniciará em:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 

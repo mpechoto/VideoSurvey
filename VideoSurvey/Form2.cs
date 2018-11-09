@@ -26,6 +26,7 @@ namespace VideoSurvey
             InitializeComponent();
             this.imageStream = imageStream;
             this.fileManager = fileManager;
+            button2.Enabled = false;
             //this.senseManager = senseManager;
             //this.DeviceInfo = DeviceInfo;
             //Console.WriteLine(imageStream.DeviceInfo.name);
@@ -108,27 +109,30 @@ namespace VideoSurvey
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != String.Empty && comboBox1.Text != String.Empty)
+            Record record = new Record
             {
-                Record record = new Record
-                {
-                    Name = textBox1.Text,
-                    Age = numericUpDown1.Value,
-                    Gender = comboBox1.Text,
-                    Videos = fileManager.VideoRandomList()
-                };
-                //Get the first name as the filename
-                fileManager.FileName = textBox1.Text.Split()[0] + ".txt";
+                Name = textBox1.Text,
+                Age = numericUpDown1.Value,
+                Gender = comboBox1.Text,
+                Videos = fileManager.VideoRandomList()
+            };
+            //Get the first name as the filename
+            fileManager.FileName = textBox1.Text.Split()[0] + ".txt";
                 
-                fileManager.CreateSampleFolder();
-                fileManager.WriteJson(fileManager.FileName, record);
+            fileManager.CreateSampleFolder();
+            fileManager.WriteJson(fileManager.FileName, record);
 
-                Form3 form3 = new Form3(imageStream, fileManager);
-                form3.Show();
-                this.Visible = false;
-            }
-            else
-                MessageBox.Show("Por favor, preencha todos os campos");
+            Form3 form3 = new Form3(imageStream, fileManager);
+            form3.Show();
+            this.Visible = false;           
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Text.Trim() != "" && comboBox1.Text.Trim() != "")
+                button2.Enabled = true;
+            else
+                button2.Enabled = false;
+        }              
     }
 }
