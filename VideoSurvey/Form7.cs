@@ -10,37 +10,28 @@ using System.Windows.Forms;
 
 namespace VideoSurvey
 {
-    public partial class Form6 : Form
+    public partial class Form7 : Form
     {
         RealSenseImageStream imageStream;
         FileManager fileManager;
-        private const int ID_QUESTION = 1;
+        private const int ID_QUESTION = 2;
         private string answer;
 
-        public Form6(RealSenseImageStream imageStream, FileManager fileManager)
+        public Form7(RealSenseImageStream imageStream, FileManager fileManager)
         {
             InitializeComponent();
             this.fileManager = fileManager;
-            this.imageStream = imageStream;            
+            this.imageStream = imageStream;
         }
 
-        private void Form6_Load(object sender, EventArgs e)
-        {
-            foreach(Control item in this.Controls)
-            {
-                if (item is RadioButton)
-                {
-                    RadioButton radioButton = item as RadioButton;
-                    radioButton.Checked = false;
-                }      
-             }
-
-            button1.Enabled = false;                       
+        private void Form7_Load(object sender, EventArgs e)
+        {        
+            button1.Enabled = false;
         }
 
         private void radio_CheckedChanged(object sender, EventArgs e)
-        {            
-            button1.Enabled = true;            
+        {
+           button1.Enabled = true;          
         }
 
         private void GetCheckedRadioButton()
@@ -51,7 +42,7 @@ namespace VideoSurvey
                 {
                     RadioButton radioButton = control as RadioButton;
                     if (radioButton.Checked)
-                        answer = radioButton.Tag.ToString();
+                        answer = radioButton.Tag.ToString();                    
                 }
             }
         }
@@ -60,9 +51,9 @@ namespace VideoSurvey
         {
             GetCheckedRadioButton();
             fileManager.UpdateSurvey(ID_QUESTION, answer);
-            
-            Form7 form7 = new Form7(imageStream, fileManager);
-            form7.Show();
+
+            Form8 form8 = new Form8(imageStream, fileManager);
+            form8.Show();
             this.Visible = false;
         }
     }

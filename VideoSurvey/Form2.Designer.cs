@@ -43,9 +43,10 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(194, 102);
+            this.textBox1.Location = new System.Drawing.Point(395, 183);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(341, 29);
             this.textBox1.TabIndex = 6;
@@ -53,9 +54,10 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(96, 102);
+            this.label1.Location = new System.Drawing.Point(297, 183);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 24);
             this.label1.TabIndex = 9;
@@ -63,9 +65,10 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(96, 142);
+            this.label2.Location = new System.Drawing.Point(297, 223);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 24);
             this.label2.TabIndex = 10;
@@ -73,9 +76,10 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(96, 180);
+            this.label3.Location = new System.Drawing.Point(297, 261);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 24);
             this.label3.TabIndex = 11;
@@ -83,8 +87,9 @@
             // 
             // button1
             // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(403, 386);
+            this.button1.Location = new System.Drawing.Point(604, 432);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(132, 50);
             this.button1.TabIndex = 10;
@@ -94,19 +99,21 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.Control;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(96, 54);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(311, 102);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(323, 24);
+            this.label4.Size = new System.Drawing.Size(410, 29);
             this.label4.TabIndex = 15;
             this.label4.Text = "Por favor, preencha os dados abaixo:";
             // 
             // button2
             // 
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(194, 386);
+            this.button2.Location = new System.Drawing.Point(301, 432);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(132, 50);
             this.button2.TabIndex = 9;
@@ -116,8 +123,9 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(194, 142);
+            this.numericUpDown1.Location = new System.Drawing.Point(395, 223);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             99,
             0,
@@ -140,6 +148,7 @@
             // comboBox1
             // 
             this.comboBox1.AllowDrop = true;
+            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -148,7 +157,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "FEMININO",
             "MASCULINO"});
-            this.comboBox1.Location = new System.Drawing.Point(194, 180);
+            this.comboBox1.Location = new System.Drawing.Point(395, 261);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(134, 32);
             this.comboBox1.TabIndex = 8;

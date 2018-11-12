@@ -55,7 +55,14 @@ namespace VideoSurvey
                 }
             };
             clock.Start();
+        }
 
+        private void Form5_Load(object sender, EventArgs e)
+        {
+           // label1.Left = (this.ClientSize.Width - label1.Width) / 2;
+            
+           // label2.Left = (this.ClientSize.Width - label2.Width-150) / 2;
+           // label2.Top = (this.ClientSize.Height - label2.Height) / 2;
         }
     }
 }

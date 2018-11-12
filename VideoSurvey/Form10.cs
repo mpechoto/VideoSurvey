@@ -10,39 +10,28 @@ using System.Windows.Forms;
 
 namespace VideoSurvey
 {
-    public partial class Form6 : Form
+    public partial class Form10 : Form
     {
         RealSenseImageStream imageStream;
         FileManager fileManager;
-        private const int ID_QUESTION = 1;
+        private const int ID_QUESTION = 5;
         private string answer;
 
-        public Form6(RealSenseImageStream imageStream, FileManager fileManager)
+        public Form10(RealSenseImageStream imageStream, FileManager fileManager)
         {
             InitializeComponent();
             this.fileManager = fileManager;
-            this.imageStream = imageStream;            
+            this.imageStream = imageStream;
         }
-
-        private void Form6_Load(object sender, EventArgs e)
+        private void Form_Load(object sender, EventArgs e)
         {
-            foreach(Control item in this.Controls)
-            {
-                if (item is RadioButton)
-                {
-                    RadioButton radioButton = item as RadioButton;
-                    radioButton.Checked = false;
-                }      
-             }
-
-            button1.Enabled = false;                       
+            button1.Enabled = false;
         }
 
         private void radio_CheckedChanged(object sender, EventArgs e)
-        {            
-            button1.Enabled = true;            
+        {
+            button1.Enabled = true;
         }
-
         private void GetCheckedRadioButton()
         {
             foreach (Control control in this.Controls)
@@ -60,9 +49,9 @@ namespace VideoSurvey
         {
             GetCheckedRadioButton();
             fileManager.UpdateSurvey(ID_QUESTION, answer);
-            
-            Form7 form7 = new Form7(imageStream, fileManager);
-            form7.Show();
+
+            Form11 form11 = new Form11(imageStream, fileManager);
+            form11.Show();
             this.Visible = false;
         }
     }

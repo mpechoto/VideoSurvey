@@ -60,8 +60,8 @@ namespace VideoSurvey
                     Console.WriteLine("Stopped");
                     //form.StopStream(); //Stop Threading
 
-                    Form5 form6 = new Form5(imageStream,fileManager);
-                    form6.Show();
+                    Form5 form5 = new Form5(imageStream,fileManager);
+                    form5.Show();
                     this.Visible = false;
                     break;
 

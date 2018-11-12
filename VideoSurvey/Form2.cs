@@ -115,16 +115,24 @@ namespace VideoSurvey
                 Age = numericUpDown1.Value,
                 Gender = comboBox1.Text,
                 Videos = fileManager.VideoRandomList()
-            };
+            };            
+
             //Get the first name as the filename
             fileManager.FileName = textBox1.Text.Split()[0] + ".txt";
                 
             fileManager.CreateSampleFolder();
-            fileManager.WriteJson(fileManager.FileName, record);
+            fileManager.WriteRecordJson(fileManager.FileName, record);
 
-            Form3 form3 = new Form3(imageStream, fileManager);
+
+            //bypass
+
+            Form6 form6 = new Form6(imageStream, fileManager);
+            form6.Show();
+            this.Visible = false;
+
+            /*Form3 form3 = new Form3(imageStream, fileManager);
             form3.Show();
-            this.Visible = false;           
+            this.Visible = false; */          
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

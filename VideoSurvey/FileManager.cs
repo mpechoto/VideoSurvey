@@ -5,13 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace VideoSurvey
 {
     public class FileManager
     {
         DirectoryInfo DirectoryInfo { get; set; }
-        Record Record { get; set; }
+        public Record Record { get; set; }
+        public Question Question { get; set; }
+        public Survey Survey { get; set; }
+        public List<Question> ListQuestion { get; set; }
+
         public string ParentPath { get; private set; }
         public string CurrentPath { get; private set; }
         public string RecordsPath { get; private set; }
@@ -27,7 +32,7 @@ namespace VideoSurvey
             //Get the Parent Path C:\Users\user\source\repos\VideoSurvey
             DirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
             ParentPath = DirectoryInfo.FullName;
-            VideosPath = ParentPath + "\\SampleSource";
+            VideosPath = ParentPath + "\\SampleSource";            
         }
 
         public void CreateRecordsFolder(string folderName = "\\Records")
@@ -93,23 +98,35 @@ namespace VideoSurvey
             return randomList; //return the new random list
         }
 
-        public void WriteJson(string file, Record record)
+        public void WriteRecordJson(string file, Record record)
         {
             File.WriteAllText(System.IO.Path.Combine(CurrentPath, file),
                 JsonConvert.SerializeObject(record,Formatting.Indented));
         }
 
-        public Record LoadJson(string filename)
+        public Record LoadRecordJson(string filename)
         {
             Record record = JsonConvert.DeserializeObject<Record>(File.ReadAllText(filename));
             return record;
+        }
+
+        public void WriteSurveyJson(string file, Survey survey)
+        {
+            File.WriteAllText(System.IO.Path.Combine(CurrentPath, file),
+                JsonConvert.SerializeObject(survey, Formatting.Indented));
+        }
+
+        public Survey LoadSurveyJson(string filename)
+        {
+            Survey survey = JsonConvert.DeserializeObject<Survey>(File.ReadAllText(filename));
+            return survey;
         }
 
         public string GetNextVideo()
         {
             if (Record == null)
             {
-                Record = LoadJson(System.IO.Path.Combine(CurrentPath, FileName));
+                Record = LoadRecordJson(System.IO.Path.Combine(CurrentPath, FileName));
                 NextVideo = Record.Videos[Cont++];
                 Qtde = Record.Videos.Count;
                 return NextVideo;
@@ -123,6 +140,43 @@ namespace VideoSurvey
                 }
                 else return "end";
             }          
+        }
+
+        
+        public void UpdateSurvey(int idQuestion, string answer)
+        {
+            if (Survey == null)
+            {
+
+                Question = new Question();
+                ListQuestion = new List<Question>();
+                
+                Question.Id = idQuestion;
+                Question.Answer = answer;
+                ListQuestion.Add(Question);
+
+                Survey = new Survey
+                {
+                    Record = Record,
+
+                    Question = ListQuestion
+                };
+
+                WriteSurveyJson("Survey.txt",Survey);
+            }
+            else
+            {
+                Survey = LoadSurveyJson(System.IO.Path.Combine(CurrentPath, "Survey.txt"));
+
+                Question.Id = idQuestion;
+                Question.Answer = answer;
+                ListQuestion = Survey.Question;
+
+                ListQuestion.Add(Question);
+                Survey.Question = ListQuestion;
+                WriteSurveyJson("Survey.txt",Survey);
+            }
+            
         }
 
     }

@@ -39,6 +39,7 @@ namespace VideoSurvey
             }
             else
             {
+                //Initialize Stream again during the loop
                 imageStream.InitializeStream();
                 imageStream.SetFileName(System.IO.Path.Combine(fileManager.CurrentPath, videoName)+".rssdk");
 
@@ -61,12 +62,19 @@ namespace VideoSurvey
                 if (time == 0)
                 {
                     clock.Stop();
-                    Form4 form5 = new Form4(imageStream, fileManager);
-                    form5.Show();
+                    Form4 form4 = new Form4(imageStream, fileManager);
+                    form4.Show();
                     this.Visible = false;
                 }
             };
             clock.Start();            
-        }  
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+         //   label1.Left = (this.ClientSize.Width - label1.Width) / 2;
+         //   label2.Left = ((this.ClientSize.Width - label2.Width-150) / 2);
+         //   label2.Top = (this.ClientSize.Height - label2.Height) / 2;
+        }
     }
 }
