@@ -39,8 +39,8 @@ namespace VideoSurvey
                     clock.Stop();
                     imageStream.StopStream(); //Stop Threading
 
-                    if (fileManager.Cont < fileManager.Qtde)
-                    {
+                    //if (fileManager.Cont < fileManager.Qtde)
+                    //{
                         Form6 form6 = new Form6(imageStream, fileManager);
                         form6.Show();
                         this.Visible = false;
@@ -48,10 +48,10 @@ namespace VideoSurvey
                         /*Form3 form3 = new Form3(imageStream, fileManager);
                         form3.Show();
                         this.Visible = false;*/
-                    }
-                    else
+                    //}
+                   // else
                     //Close Application at all
-                        System.Windows.Forms.Application.Exit();
+                    //    System.Windows.Forms.Application.Exit();
                 }
             };
             clock.Start();

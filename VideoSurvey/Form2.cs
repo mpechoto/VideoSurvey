@@ -126,13 +126,13 @@ namespace VideoSurvey
 
             //bypass
 
-            Form6 form6 = new Form6(imageStream, fileManager);
+            /*Form6 form6 = new Form6(imageStream, fileManager);
             form6.Show();
-            this.Visible = false;
+            this.Visible = false;*/
 
-            /*Form3 form3 = new Form3(imageStream, fileManager);
+            Form3 form3 = new Form3(imageStream, fileManager);
             form3.Show();
-            this.Visible = false; */          
+            this.Visible = false;          
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

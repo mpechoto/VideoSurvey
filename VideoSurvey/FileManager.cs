@@ -17,6 +17,9 @@ namespace VideoSurvey
         public Survey Survey { get; set; }
         public List<Question> ListQuestion { get; set; }
 
+        public VideosCollection VideosCollection { get; set; }
+        public Answers Answers { get; set; }
+
         public string ParentPath { get; private set; }
         public string CurrentPath { get; private set; }
         public string RecordsPath { get; private set; }
@@ -32,7 +35,9 @@ namespace VideoSurvey
             //Get the Parent Path C:\Users\user\source\repos\VideoSurvey
             DirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
             ParentPath = DirectoryInfo.FullName;
-            VideosPath = ParentPath + "\\SampleSource";            
+            VideosPath = ParentPath + "\\SampleSource";
+            
+            Answers = new Answers();
         }
 
         public void CreateRecordsFolder(string folderName = "\\Records")
@@ -89,6 +94,9 @@ namespace VideoSurvey
             Random rand = new Random();
             int randomIndex = 0;
 
+            //bypass to debug
+            fileList.RemoveRange(2,27);
+
             while (fileList.Count > 0)
             {
                 randomIndex = rand.Next(0, fileList.Count);//Choose a random object in the list
@@ -110,7 +118,7 @@ namespace VideoSurvey
             return record;
         }
 
-        public void WriteSurveyJson(string file, Survey survey)
+        /*public void WriteSurveyJson(string file, Survey survey)
         {
             File.WriteAllText(System.IO.Path.Combine(CurrentPath, file),
                 JsonConvert.SerializeObject(survey, Formatting.Indented));
@@ -120,7 +128,7 @@ namespace VideoSurvey
         {
             Survey survey = JsonConvert.DeserializeObject<Survey>(File.ReadAllText(filename));
             return survey;
-        }
+        }*/
 
         public string GetNextVideo()
         {
@@ -142,8 +150,37 @@ namespace VideoSurvey
             }          
         }
 
+        public void SaveSurvey()
+        {
+            Video video = new Video {
+                VideoName = NextVideo,
+                Answers = this.Answers
+            };            
+
+            string filePath = System.IO.Path.Combine(CurrentPath, "Survey.txt");
+
+            if (File.Exists(filePath))
+            {
+                VideosCollection = JsonConvert.DeserializeObject<VideosCollection>
+                (File.ReadAllText(filePath));
+
+                VideosCollection.Videos.Add(video);
+
+                File.WriteAllText(filePath,JsonConvert.SerializeObject
+                    (VideosCollection, Formatting.Indented));
+            }
+            else
+            {
+                ICollection<Video> ts = new List<Video>();
+                ts.Add(video);
+                VideosCollection = new VideosCollection { Videos = ts};
+
+                File.WriteAllText(filePath,
+                    JsonConvert.SerializeObject(VideosCollection, Formatting.Indented));
+            }        
+        }
         
-        public void UpdateSurvey(int idQuestion, string answer)
+        /*public void UpdateSurvey(int idQuestion, string answer)
         {
             if (Survey == null)
             {
@@ -177,7 +214,7 @@ namespace VideoSurvey
                 WriteSurveyJson("Survey.txt",Survey);
             }
             
-        }
+        }*/
 
     }
 }

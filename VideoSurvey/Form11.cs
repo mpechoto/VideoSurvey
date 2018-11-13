@@ -14,8 +14,8 @@ namespace VideoSurvey
     {
         RealSenseImageStream imageStream;
         FileManager fileManager;
-        private const int ID_QUESTION = 6;
-        private string answer;
+        //private const int ID_QUESTION = 6;
+        //private string answer;
 
         public Form11(RealSenseImageStream imageStream, FileManager fileManager)
         {
@@ -26,13 +26,22 @@ namespace VideoSurvey
 
         private void button1_Click(object sender, EventArgs e)
         {
-            answer = textBox1.Text;
-            fileManager.UpdateSurvey(ID_QUESTION, answer);
+            fileManager.Answers.Q6 = textBox1.Text;
+            //fileManager.UpdateSurvey(ID_QUESTION, answer);
 
-            //bypass
-            Form6 form6 = new Form6(imageStream, fileManager);
-            form6.Show();
-            this.Visible = false;
+            //Save Answers to Json File
+            fileManager.SaveSurvey();
+
+            //bypass Form 6
+            if (fileManager.Cont < fileManager.Qtde)
+            {
+                Form3 form3 = new Form3(imageStream, fileManager);
+                form3.Show();
+                this.Visible = false;
+            }
+            else //precisar implementar a tela de saida final
+                //Close Application at all 
+                System.Windows.Forms.Application.Exit();
         }
     }
 }
