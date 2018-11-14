@@ -7,8 +7,6 @@ namespace VideoSurvey
     {
         RealSenseImageStream imageStream;
         FileManager fileManager;
-       // private const int ID_QUESTION = 3;
-        //private string answer;
 
         public Form8 (RealSenseImageStream imageStream, FileManager fileManager)
         {
@@ -29,7 +27,6 @@ namespace VideoSurvey
         private string GetCheckedRadioButton()
         {
             string answer = null;
-
             foreach (Control control in this.Controls)
             {
                 if (control is RadioButton)
@@ -45,8 +42,6 @@ namespace VideoSurvey
         private void button1_Click(object sender, EventArgs e)
         {
             fileManager.Answers.Q3 = GetCheckedRadioButton();
-            //fileManager.UpdateSurvey(ID_QUESTION, answer);
-
             Form9 form9 = new Form9(imageStream, fileManager);
             form9.Show();
             this.Visible = false;

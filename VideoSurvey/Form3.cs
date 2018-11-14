@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Windows.Forms;
 
 namespace VideoSurvey
@@ -10,10 +9,6 @@ namespace VideoSurvey
 
         RealSenseImageStream imageStream;
         FileManager fileManager;
-
-        public float FPS = 30;
-        public int height = 480;
-        public int width = 640;
         int timer = 6; //6 seconds
         
         public bool IsRunning { get; private set; }
@@ -44,8 +39,7 @@ namespace VideoSurvey
                 imageStream.SetFileName(System.IO.Path.Combine(fileManager.CurrentPath, videoName)+".rssdk");
 
                 imageStream.StartStream();
-            }
-                       
+            }                       
             Timer(timer);
         }      
 
@@ -68,13 +62,6 @@ namespace VideoSurvey
                 }
             };
             clock.Start();            
-        }
-
-        private void Form3_Load(object sender, EventArgs e)
-        {
-         //   label1.Left = (this.ClientSize.Width - label1.Width) / 2;
-         //   label2.Left = ((this.ClientSize.Width - label2.Width-150) / 2);
-         //   label2.Top = (this.ClientSize.Height - label2.Height) / 2;
         }
     }
 }

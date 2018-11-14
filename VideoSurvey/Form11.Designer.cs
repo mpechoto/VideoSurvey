@@ -38,11 +38,11 @@
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(334, 367);
+            this.button1.Location = new System.Drawing.Point(317, 367);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(132, 50);
+            this.button1.Size = new System.Drawing.Size(166, 50);
             this.button1.TabIndex = 11;
-            this.button1.Text = "&Avançar";
+            this.button1.Text = "&Próximo Video";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

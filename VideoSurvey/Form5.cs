@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace VideoSurvey
 {
@@ -19,8 +11,7 @@ namespace VideoSurvey
         {
             InitializeComponent();
             this.imageStream = imageStream;
-            this.fileManager = fileManager;
-            
+            this.fileManager = fileManager;            
             Timer(6);
         }
         
@@ -28,7 +19,6 @@ namespace VideoSurvey
         {
             System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
             clock.Interval = 1000;
-
             clock.Tick += delegate
             {
                 time -= 1;
@@ -37,32 +27,14 @@ namespace VideoSurvey
                 if (time == 0)
                 {
                     clock.Stop();
-                    imageStream.StopStream(); //Stop Threading
-
-                    //if (fileManager.Cont < fileManager.Qtde)
-                    //{
-                        Form6 form6 = new Form6(imageStream, fileManager);
-                        form6.Show();
-                        this.Visible = false;
-
-                        /*Form3 form3 = new Form3(imageStream, fileManager);
-                        form3.Show();
-                        this.Visible = false;*/
-                    //}
-                   // else
-                    //Close Application at all
-                    //    System.Windows.Forms.Application.Exit();
+                    //Stop Threading, to stop the recording
+                    imageStream.StopStream(); 
+                    Form6 form6 = new Form6(imageStream, fileManager);
+                    form6.Show();
+                    this.Visible = false;                    
                 }
             };
             clock.Start();
-        }
-
-        private void Form5_Load(object sender, EventArgs e)
-        {
-           // label1.Left = (this.ClientSize.Width - label1.Width) / 2;
-            
-           // label2.Left = (this.ClientSize.Width - label2.Width-150) / 2;
-           // label2.Top = (this.ClientSize.Height - label2.Height) / 2;
         }
     }
 }

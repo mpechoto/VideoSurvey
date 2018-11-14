@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VideoSurvey
@@ -14,8 +7,6 @@ namespace VideoSurvey
     {
         RealSenseImageStream imageStream;
         FileManager fileManager;
-        //private const int ID_QUESTION = 5;
-        //private string answer;
 
         public Form10(RealSenseImageStream imageStream, FileManager fileManager)
         {
@@ -36,7 +27,6 @@ namespace VideoSurvey
         private string GetCheckedRadioButton()
         {
             string answer = null;
-
             foreach (Control control in this.Controls)
             {
                 if (control is RadioButton)
@@ -52,8 +42,6 @@ namespace VideoSurvey
         private void button1_Click(object sender, EventArgs e)
         {
             fileManager.Answers.Q5 = GetCheckedRadioButton();
-            //fileManager.UpdateSurvey(ID_QUESTION, answer);
-
             Form11 form11 = new Form11(imageStream, fileManager);
             form11.Show();
             this.Visible = false;

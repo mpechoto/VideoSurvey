@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
+using System.Configuration;
+using System.Reflection;
 using System.Windows.Forms;
+using System.Text;
 
 namespace VideoSurvey
 {
     public class FileManager
     {
-        DirectoryInfo DirectoryInfo { get; set; }
+        //DirectoryInfo DirectoryInfo { get; set; }
         public Record Record { get; set; }
-        public Question Question { get; set; }
-        public Survey Survey { get; set; }
-        public List<Question> ListQuestion { get; set; }
-
         public VideosCollection VideosCollection { get; set; }
         public Answers Answers { get; set; }
 
@@ -24,20 +20,40 @@ namespace VideoSurvey
         public string CurrentPath { get; private set; }
         public string RecordsPath { get; private set; }
         public string VideosPath { get; private set; }
-        public string FileName { get; set; }
-        //public string CurrentVideo { get; set; }
+        public string FileName { get; set; }        
         public string NextVideo { get; set; }
         public int Cont = 0;
         public int Qtde = 0;
 
         public FileManager()
         {
-            //Get the Parent Path C:\Users\user\source\repos\VideoSurvey
-            DirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
-            ParentPath = DirectoryInfo.FullName;
-            VideosPath = ParentPath + "\\SampleSource";
-            
+            //Get the Parent Path C:\..\..\..\..\VideoSurvey      
+
+            //DirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
+            //DirectoryInfo = new DirectoryInfo(teste);
+            //ParentPath = DirectoryInfo.FullName;
+            ParentPath = GetMyRootPath(Directory.GetCurrentDirectory());
+            VideosPath = ParentPath + @"\SampleSource";            
             Answers = new Answers();
+        }
+
+        public string GetMyRootPath(string filePath)
+        {
+            string directoryName;
+            int i = 0;
+            while (filePath.Contains(@"\VideoSurvey\VideoSurvey"))
+            {
+                directoryName = Path.GetDirectoryName(filePath);
+                //Console.WriteLine("GetDirectoryName('{0}') returns '{1}'",
+                    //filePath, directoryName);
+                filePath = directoryName;
+                if (i == 1)
+                {
+                    filePath = directoryName + @"\";  // this will preserve the previous path
+                }
+                i++;
+            }
+            return filePath;
         }
 
         public void CreateRecordsFolder(string folderName = "\\Records")
@@ -85,16 +101,12 @@ namespace VideoSurvey
 
         public List<string> VideoRandomList()
         {
-            //DirectoryInfo root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent;
-            //string path = root.FullName + @"\VideoSurvey\public\";
-            //Console.WriteLine("path {0}",path);
-
             List<string> fileList = new List<string>(Directory.GetFiles(VideosPath));
             List<string> randomList = new List<string>();
             Random rand = new Random();
             int randomIndex = 0;
 
-            //bypass to debug
+            //bypass to debug, remove 27 videos
             fileList.RemoveRange(2,27);
 
             while (fileList.Count > 0)
@@ -116,19 +128,7 @@ namespace VideoSurvey
         {
             Record record = JsonConvert.DeserializeObject<Record>(File.ReadAllText(filename));
             return record;
-        }
-
-        /*public void WriteSurveyJson(string file, Survey survey)
-        {
-            File.WriteAllText(System.IO.Path.Combine(CurrentPath, file),
-                JsonConvert.SerializeObject(survey, Formatting.Indented));
-        }
-
-        public Survey LoadSurveyJson(string filename)
-        {
-            Survey survey = JsonConvert.DeserializeObject<Survey>(File.ReadAllText(filename));
-            return survey;
-        }*/
+        }                
 
         public string GetNextVideo()
         {
@@ -177,44 +177,7 @@ namespace VideoSurvey
 
                 File.WriteAllText(filePath,
                     JsonConvert.SerializeObject(VideosCollection, Formatting.Indented));
-            }        
+            } 
         }
-        
-        /*public void UpdateSurvey(int idQuestion, string answer)
-        {
-            if (Survey == null)
-            {
-
-                Question = new Question();
-                ListQuestion = new List<Question>();
-                
-                Question.Id = idQuestion;
-                Question.Answer = answer;
-                ListQuestion.Add(Question);
-
-                Survey = new Survey
-                {
-                    Record = Record,
-
-                    Question = ListQuestion
-                };
-
-                WriteSurveyJson("Survey.txt",Survey);
-            }
-            else
-            {
-                Survey = LoadSurveyJson(System.IO.Path.Combine(CurrentPath, "Survey.txt"));
-
-                Question.Id = idQuestion;
-                Question.Answer = answer;
-                ListQuestion = Survey.Question;
-
-                ListQuestion.Add(Question);
-                Survey.Question = ListQuestion;
-                WriteSurveyJson("Survey.txt",Survey);
-            }
-            
-        }*/
-
     }
 }

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VideoSurvey
@@ -14,8 +7,6 @@ namespace VideoSurvey
     {
         RealSenseImageStream imageStream;
         FileManager fileManager;
-        //private const int ID_QUESTION = 6;
-        //private string answer;
 
         public Form11(RealSenseImageStream imageStream, FileManager fileManager)
         {
@@ -27,8 +18,6 @@ namespace VideoSurvey
         private void button1_Click(object sender, EventArgs e)
         {
             fileManager.Answers.Q6 = textBox1.Text;
-            //fileManager.UpdateSurvey(ID_QUESTION, answer);
-
             //Save Answers to Json File
             fileManager.SaveSurvey();
 
@@ -39,9 +28,12 @@ namespace VideoSurvey
                 form3.Show();
                 this.Visible = false;
             }
-            else //precisar implementar a tela de saida final
-                //Close Application at all 
-                System.Windows.Forms.Application.Exit();
+            else
+            {
+                Form12 form12 = new Form12();
+                form12.Show();
+                this.Visible = false;
+            }
         }
     }
 }

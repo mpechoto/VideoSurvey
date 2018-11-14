@@ -13,12 +13,8 @@ namespace VideoSurvey
 {
     public partial class Form1 : Form
     {
-        //PXCMSession session;
-        //PXCMSenseManager senseManager;
-
         RealSenseImageStream imageStream;
-        FileManager fileManager;
-        
+        FileManager fileManager;        
         private Dictionary<ToolStripMenuItem, PXCMCapture.DeviceInfo> devices = new Dictionary<ToolStripMenuItem, PXCMCapture.DeviceInfo>();
         private Dictionary<ToolStripMenuItem, int> devices_iuid = new Dictionary<ToolStripMenuItem, int>();
 
@@ -26,36 +22,15 @@ namespace VideoSurvey
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(Closing);
-
+            //Initilize the imageStream with a list of the Stream types
             imageStream = new RealSenseImageStream(new PXCMCapture.StreamType[] 
                 { PXCMCapture.StreamType.STREAM_TYPE_COLOR, PXCMCapture.StreamType.STREAM_TYPE_DEPTH });
             imageStream.InitializeStream();
             label1.Text = imageStream.Status_pipeline;
 
-            fileManager = new FileManager();
-
-            //CreateSenseManager(ses);
-            //session = ses;
+            fileManager = new FileManager();           
             CheckDevices();
-            //sm = session.CreateSenseManager();
-        }
-
-        /*public void CreateSenseManager(PXCMSession ses)
-        {
-            // Creating a SDK session
-            //session = PXCMSession.CreateInstance();
-            session = ses;
-            // Creating the SenseManager
-            senseManager = ses.CreateSenseManager();
-            if (senseManager == null)
-            {
-                label1.Text = "Failed to create an SDK pipeline object";
-                //Console.WriteLine("Failed to create the SenseManager object.");
-                return;
-            }
-            else
-                label1.Text = "Pipeline created";
-        }*/
+        }        
 
         private void CheckDevices()
         {
@@ -98,17 +73,15 @@ namespace VideoSurvey
         {
             foreach (ToolStripMenuItem e in devicesToolStripMenuItem.DropDownItems)
             {
-                if (devices.ContainsKey(e))
-                {
-                    if (e.Checked) return devices[e];
-                }
+                if (devices.ContainsKey(e))                
+                    if (e.Checked) return devices[e];                
             }            
             return new PXCMCapture.DeviceInfo();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private new void Closing(object sender, System.Windows.Forms.FormClosingEventArgs e)
@@ -116,7 +89,7 @@ namespace VideoSurvey
             if (MessageBox.Show("Tem certeza que deseja sair da aplicação?", "Sair",
                 MessageBoxButtons.YesNo,MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                System.Environment.Exit(0);
+                Application.Exit();
             }
             else
                 e.Cancel = true;
@@ -124,6 +97,7 @@ namespace VideoSurvey
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Creates the Records folder if it does not exist
             fileManager.CreateRecordsFolder();
             
             imageStream.DeviceInfo = GetCheckedDevice();
