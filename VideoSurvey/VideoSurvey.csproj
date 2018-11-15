@@ -178,6 +178,12 @@
     <Compile Include="Start2.Designer.cs">
       <DependentUpon>Start2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Start3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Start3.Designer.cs">
+      <DependentUpon>Start3.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Start2.resx">
       <DependentUpon>Start2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Start3.resx">
+      <DependentUpon>Start3.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

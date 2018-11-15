@@ -70,7 +70,10 @@ namespace VideoSurvey
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TakeScreenshot();           
+            TakeScreenshot();
+            Start3 start3 = new Start3(imageStream, fileManager);
+            start3.Show();
+            this.Visible = false;
 
         }
     }

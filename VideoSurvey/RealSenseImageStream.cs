@@ -64,8 +64,7 @@ namespace VideoSurvey
                 return;
             }
             else
-                Status_pipeline = "Pipeline created";
-            
+                Status_pipeline = "Pipeline created";            
 
             foreach (var stream in StreamType)
             {
