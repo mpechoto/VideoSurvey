@@ -19,12 +19,12 @@ namespace VideoSurvey
         private Dictionary<ToolStripMenuItem, int> devices_iuid = new Dictionary<ToolStripMenuItem, int>();
 
         public Form1()
-        {
+        {            
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(Closing);
             //Initilize the imageStream with a list of the Stream types
             imageStream = new RealSenseImageStream(new PXCMCapture.StreamType[] 
-                { PXCMCapture.StreamType.STREAM_TYPE_COLOR, PXCMCapture.StreamType.STREAM_TYPE_DEPTH });
+                { PXCMCapture.StreamType.STREAM_TYPE_COLOR, PXCMCapture.StreamType.STREAM_TYPE_DEPTH, PXCMCapture.StreamType.STREAM_TYPE_IR });
             imageStream.InitializeStream();
             label1.Text = imageStream.Status_pipeline;
 
@@ -67,7 +67,7 @@ namespace VideoSurvey
                 e1.Checked = (sender == e1);
                 label2.Text = GetCheckedDevice().name;
             //PopulateColorDepthMenus(sender as ToolStripMenuItem);
-        }
+        }    
 
         public PXCMCapture.DeviceInfo GetCheckedDevice()
         {
@@ -97,13 +97,50 @@ namespace VideoSurvey
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Creates the Records folder if it does not exist
-            fileManager.CreateRecordsFolder();
-            
             imageStream.DeviceInfo = GetCheckedDevice();
-            Form2 form2 = new Form2(imageStream, fileManager);           
-            form2.Show();
-            this.Visible = false;
+            fileManager.User = GetCheckedUser();
+
+            if (fileManager.User != "" && imageStream.DeviceInfo.name != "")
+            {
+                //Creates the Records folder if it does not exist
+                fileManager.CreateRecordsFolder();
+
+                //If Webcam
+                if (imageStream.DeviceInfo.model == PXCMCapture.DeviceModel.DEVICE_MODEL_GENERIC)
+                {
+                    imageStream.Dispose();
+                    imageStream.StreamType = new PXCMCapture.StreamType[] { PXCMCapture.StreamType.STREAM_TYPE_COLOR };
+                    imageStream.FramesPerSecond = 30;
+                    imageStream.InitializeStream(640, 480, 30);
+                }
+
+                //imageStream.SetStreams();
+                //Console.WriteLine(imageStream.DeviceInfo.model);
+
+                Form2 form2 = new Form2(imageStream, fileManager);
+                form2.Show();
+                this.Visible = false;
+            }
+            else
+                MessageBox.Show("Selecione um Device e um Usuário para continuar");
+        }
+
+        public string GetCheckedUser()
+        {
+            foreach (ToolStripMenuItem e in usuárioToolStripMenuItem.DropDownItems)
+            {
+                if (e.Checked) return e.Text;
+            }
+            return "";
+        }
+
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem e1 in usuárioToolStripMenuItem.DropDownItems)
+                e1.Checked = (sender == e1); 
         }
     }
 }
+
+
+//PENSAR NO SenseManager.captureManager.FilterByDeviceInfo(DeviceInfo);

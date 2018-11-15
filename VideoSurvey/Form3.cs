@@ -27,7 +27,7 @@ namespace VideoSurvey
 
             string videoName = System.IO.Path.GetFileNameWithoutExtension(fileManager.GetNextVideo());
 
-            if (fileManager.Cont == 0)
+            if (fileManager.Cont == 1)
             {
                 imageStream.SetFileName(System.IO.Path.Combine(fileManager.CurrentPath, videoName)+".rssdk");
                 imageStream.StartStream();

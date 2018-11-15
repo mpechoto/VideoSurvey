@@ -17,7 +17,8 @@ namespace VideoSurvey
 
         private void button1_Click(object sender, EventArgs e)
         {
-            fileManager.Answers.Q6 = textBox1.Text;
+            fileManager.Answers.Add(new Answers { Id = 6, Answer = textBox1.Text });
+            //fileManager.Answers.Q6 = textBox1.Text;
             //Save Answers to Json File
             fileManager.SaveSurvey();
 

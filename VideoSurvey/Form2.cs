@@ -7,7 +7,7 @@ namespace VideoSurvey
     {               
         RealSenseImageStream imageStream;
         FileManager fileManager;
-        bool bypass = false;
+        bool bypass = false; //bypass videos
 
         public Form2()
         {
@@ -19,8 +19,8 @@ namespace VideoSurvey
             InitializeComponent();
             this.imageStream = imageStream;
             this.fileManager = fileManager;
-            button2.Enabled = false;            
-        }
+            button2.Enabled = false;
+        }      
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -40,6 +40,7 @@ namespace VideoSurvey
             };
 
             //Get the first name as the filename
+            fileManager.Participant = textBox1.Text.Split()[0];
             fileNameId = textBox1.Text.Split()[0] + ".txt";
             fileManager.FileName = fileNameId;
             //Creates a folder to each Volunteer
@@ -52,9 +53,12 @@ namespace VideoSurvey
                 form6.Show();
                 this.Visible = false;
             }
-            Form3 form3 = new Form3(imageStream, fileManager);
-            form3.Show();
-            this.Visible = false;          
+            else
+            {
+                Start1 start1 = new Start1(imageStream, fileManager);
+                start1.Show();
+                this.Visible = false;
+            }        
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -63,6 +67,11 @@ namespace VideoSurvey
                 button2.Enabled = true;
             else
                 button2.Enabled = false;
-        }              
+        }
+
+        private void textBox1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+        }
     }
 }

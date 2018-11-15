@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace VideoSurvey
 {
@@ -14,7 +11,7 @@ namespace VideoSurvey
         public List<string> Videos { get; set; }
     }
    
-    public class Answers
+    public class Answers_OLD
     {
         public string Q1 { get; set; }
         public string Q2 { get; set; }
@@ -24,14 +21,20 @@ namespace VideoSurvey
         public string Q6 { get; set; }
     }
 
-    public class Video
-    {
-        public string VideoName { get; set; }
-        public Answers Answers { get; set; }
-    }
-
     public class VideosCollection
     {
-        public ICollection<Video> Videos { get; set; }        
+        public ICollection<Video> Videos { get; set; }
+    }
+
+    public class Video
+    {        
+        public string VideoName { get; set; }        
+        public ICollection<Answers> Answers { get; set; }
+    }
+
+    public class Answers
+    {        
+        public int Id { get; set; }        
+        public string Answer { get; set; }
     }
 }

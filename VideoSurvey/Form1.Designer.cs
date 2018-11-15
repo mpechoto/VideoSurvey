@@ -34,6 +34,11 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.devicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuárioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.muriloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paulaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pedroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -49,7 +54,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 80);
             this.button1.TabIndex = 0;
-            this.button1.Text = "&Iniciar Teste";
+            this.button1.Text = "&Iniciar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -79,7 +84,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.devicesToolStripMenuItem});
+            this.devicesToolStripMenuItem,
+            this.usuárioToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1032, 24);
@@ -91,6 +97,45 @@
             this.devicesToolStripMenuItem.Name = "devicesToolStripMenuItem";
             this.devicesToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.devicesToolStripMenuItem.Text = "&Devices";
+            // 
+            // usuárioToolStripMenuItem
+            // 
+            this.usuárioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.muriloToolStripMenuItem,
+            this.paulaToolStripMenuItem,
+            this.pedroToolStripMenuItem,
+            this.saraToolStripMenuItem});
+            this.usuárioToolStripMenuItem.Name = "usuárioToolStripMenuItem";
+            this.usuárioToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.usuárioToolStripMenuItem.Text = "&Usuário";
+            // 
+            // muriloToolStripMenuItem
+            // 
+            this.muriloToolStripMenuItem.Name = "muriloToolStripMenuItem";
+            this.muriloToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.muriloToolStripMenuItem.Text = "Murilo";
+            this.muriloToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // paulaToolStripMenuItem
+            // 
+            this.paulaToolStripMenuItem.Name = "paulaToolStripMenuItem";
+            this.paulaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.paulaToolStripMenuItem.Text = "Paula";
+            this.paulaToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // pedroToolStripMenuItem
+            // 
+            this.pedroToolStripMenuItem.Name = "pedroToolStripMenuItem";
+            this.pedroToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pedroToolStripMenuItem.Text = "Pedro";
+            this.pedroToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // saraToolStripMenuItem
+            // 
+            this.saraToolStripMenuItem.Name = "saraToolStripMenuItem";
+            this.saraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saraToolStripMenuItem.Text = "Sara";
+            this.saraToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -147,6 +192,11 @@
         private System.Windows.Forms.ToolStripMenuItem devicesToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem usuárioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem muriloToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem paulaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pedroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saraToolStripMenuItem;
     }
 }
 

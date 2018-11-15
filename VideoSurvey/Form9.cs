@@ -42,7 +42,8 @@ namespace VideoSurvey
 
         private void button1_Click(object sender, EventArgs e)
         {
-            fileManager.Answers.Q4 = GetCheckedRadioButton();
+            fileManager.Answers.Add(new Answers { Id = 4, Answer = GetCheckedRadioButton() });
+            //fileManager.Answers.Q4 = GetCheckedRadioButton();
             Form10 form10 = new Form10(imageStream, fileManager);
             form10.Show();
             this.Visible = false;

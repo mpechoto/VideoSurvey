@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using System.Configuration;
-using System.Reflection;
-using System.Windows.Forms;
-using System.Text;
 
 namespace VideoSurvey
 {
     public class FileManager
-    {
-        //DirectoryInfo DirectoryInfo { get; set; }
+    {        
         public Record Record { get; set; }
         public VideosCollection VideosCollection { get; set; }
-        public Answers Answers { get; set; }
+        public ICollection<Answers> Answers { get; set; }
 
+        public string User { get; set; }
+        public string Participant { get; set; }
         public string ParentPath { get; private set; }
         public string CurrentPath { get; private set; }
         public string RecordsPath { get; private set; }
@@ -28,13 +25,10 @@ namespace VideoSurvey
         public FileManager()
         {
             //Get the Parent Path C:\..\..\..\..\VideoSurvey      
-
-            //DirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
-            //DirectoryInfo = new DirectoryInfo(teste);
-            //ParentPath = DirectoryInfo.FullName;
             ParentPath = GetMyRootPath(Directory.GetCurrentDirectory());
-            VideosPath = ParentPath + @"\SampleSource";            
-            Answers = new Answers();
+            VideosPath = ParentPath + @"\SampleSource";
+
+            Answers = new List<Answers>();
         }
 
         public string GetMyRootPath(string filePath)
@@ -77,9 +71,7 @@ namespace VideoSurvey
                     current = Int32.Parse(subs[1]);
 
                     if (next < current)
-                    {
-                        next = current;
-                    }
+                        next = current;                    
                 }
             }
             catch (UnauthorizedAccessException UAEx)
@@ -128,7 +120,26 @@ namespace VideoSurvey
         {
             Record record = JsonConvert.DeserializeObject<Record>(File.ReadAllText(filename));
             return record;
-        }                
+        }
+
+        public void PrintRecord(string json)
+        {
+            Record record = JsonConvert.DeserializeObject<Record>(File.ReadAllText(json));
+            Console.WriteLine("Name: {0}\nIdade: {1}\nSexo: {2}", record.Name, record.Age, record.Gender);
+            record.Videos.ForEach(i => Console.WriteLine("{0}", i));
+        }
+        
+        public void PrintSurvey(string json)
+        {
+            VideosCollection videosCollection = JsonConvert.DeserializeObject<VideosCollection>
+                (File.ReadAllText(json));
+            foreach (var video in videosCollection.Videos)
+            {
+                Console.WriteLine(video.VideoName);
+                foreach (var answers in video.Answers)
+                    Console.WriteLine("Q"+ answers.Id + ": " + answers.Answer);
+            }
+        }
 
         public string GetNextVideo()
         {
@@ -155,17 +166,17 @@ namespace VideoSurvey
             Video video = new Video {
                 VideoName = NextVideo,
                 Answers = this.Answers
-            };            
+            };
 
             string filePath = System.IO.Path.Combine(CurrentPath, "Survey.txt");
 
             if (File.Exists(filePath))
-            {
+            {   //Load Json File
                 VideosCollection = JsonConvert.DeserializeObject<VideosCollection>
                 (File.ReadAllText(filePath));
-
+                
                 VideosCollection.Videos.Add(video);
-
+                //Save Jsn File
                 File.WriteAllText(filePath,JsonConvert.SerializeObject
                     (VideosCollection, Formatting.Indented));
             }
@@ -174,10 +185,11 @@ namespace VideoSurvey
                 ICollection<Video> ts = new List<Video>();
                 ts.Add(video);
                 VideosCollection = new VideosCollection { Videos = ts};
-
+                //Save Jsn File
                 File.WriteAllText(filePath,
                     JsonConvert.SerializeObject(VideosCollection, Formatting.Indented));
-            } 
+            }
+            this.Answers.Clear();
         }
     }
 }

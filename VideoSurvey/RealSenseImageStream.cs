@@ -13,19 +13,19 @@ namespace VideoSurvey
 
         public PXCMSession Session { get; private set; }
         public PXCMSenseManager SenseManager { get; private set; }
-        public PXCMCapture.StreamType[] StreamType { get; private set; }
+        public PXCMCapture.StreamType[] StreamType { get; set; }
         public PXCMCapture.DeviceInfo DeviceInfo { get; set; }
         #endregion
 
         #region Stream parameters
 
-        public float FramesPerSecond { get; private set; }
+        public float FramesPerSecond = 60;// { get; private set; }
         public int ResolutionHeight { get; private set; }
         public int ResolutionWidth { get; private set; }
 
         private const int DEFAULT_RESOLUTION_WIDTH = 640;
         private const int DEFAULT_RESOLUTION_HEIGHT = 480;
-        private const float DEFAULT_FPS = 60;
+        //public const float DEFAULT_FPS = 60;
 
         #endregion
 
@@ -41,7 +41,13 @@ namespace VideoSurvey
 
         public void InitializeStream()
         {
-            InitializeStream(DEFAULT_RESOLUTION_WIDTH, DEFAULT_RESOLUTION_HEIGHT, DEFAULT_FPS);
+            InitializeStream(DEFAULT_RESOLUTION_WIDTH, DEFAULT_RESOLUTION_HEIGHT, FramesPerSecond);
+        }
+
+        public void Dispose()
+        {
+            //Session.Dispose();
+            SenseManager.Dispose();
         }
 
         public void InitializeStream(int resolutionWidth, int resolutionHeight, float framesPerSecond)
