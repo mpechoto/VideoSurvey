@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Windows.Forms;
+using System.IO;
 
 namespace VideoSurvey
 {
@@ -9,7 +10,7 @@ namespace VideoSurvey
 
         RealSenseImageStream imageStream;
         FileManager fileManager;
-        int timer = 6; //6 seconds
+        int timer = 6; //6 seconds        
         
         public bool IsRunning { get; private set; }
         public Thread CaptureThread { get; private set; }
@@ -25,18 +26,22 @@ namespace VideoSurvey
             this.imageStream = imageStream;
             this.fileManager = fileManager;
 
-            string videoName = System.IO.Path.GetFileNameWithoutExtension(fileManager.GetNextVideo());
+            string videoName;// = Path.GetFileNameWithoutExtension(fileManager.GetNextVideo());
 
-            if (fileManager.Cont == 1)
+            if (fileManager.TestSession)//Test Session
             {
-                imageStream.SetFileName(System.IO.Path.Combine(fileManager.CurrentPath, videoName)+".rssdk");
+                //fileManager.TestSession = false;
+                videoName = "teste";
+                fileManager.NextVideo = fileManager.Record.Videos[fileManager.Qtde];                
+                imageStream.SetFileName(Path.Combine(fileManager.CurrentPath, videoName)+".rssdk");
                 imageStream.StartStream();
             }
             else
             {
+                videoName = Path.GetFileNameWithoutExtension(fileManager.GetNextVideo());
                 //Initialize Stream again during the loop
                 imageStream.InitializeStream();
-                imageStream.SetFileName(System.IO.Path.Combine(fileManager.CurrentPath, videoName)+".rssdk");
+                imageStream.SetFileName(Path.Combine(fileManager.CurrentPath, videoName)+".rssdk");
 
                 imageStream.StartStream();
             }                       

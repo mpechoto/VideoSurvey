@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using System.Threading;
+using System.Diagnostics;
 
 namespace VideoSurvey
 {
@@ -100,6 +102,20 @@ namespace VideoSurvey
             imageStream.DeviceInfo = GetCheckedDevice();
             fileManager.User = GetCheckedUser();
 
+             Process p = new Process();
+            //ProcessStartInfo startInfo = new ProcessStartInfo();
+            //p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+
+            // p.StartInfo.WorkingDirectory = @"C:\Users\muril\AppData\Local\Android\Sdk\platform-tools";
+            //p.StartInfo.WorkingDirectory = @"%AppData%\Local\Android\Sdk\platform-tools";????
+            p.StartInfo.FileName = "cmd.exe";
+             p.StartInfo.Arguments = "/k adb devices ";            
+              p.Start();
+
+            // var stdout = new Cli("cmd -k adb devices").Execute().StandardOutput;
+
+            
+
             if (fileManager.User != "" && imageStream.DeviceInfo.name != "")
             {
                 //Creates the Records folder if it does not exist
@@ -114,12 +130,9 @@ namespace VideoSurvey
                     imageStream.InitializeStream(640, 480, 30);
                 }
 
-                //imageStream.SetStreams();
-                //Console.WriteLine(imageStream.DeviceInfo.model);
-
                 Form2 form2 = new Form2(imageStream, fileManager);
                 form2.Show();
-                this.Visible = false;
+                this.Visible = false;                
             }
             else
                 MessageBox.Show("Selecione um Device e um Usuário para continuar");

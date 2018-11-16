@@ -46,7 +46,7 @@ namespace VideoSurvey
 
         public void Dispose()
         {
-            //Session.Dispose();
+            Session.Dispose();
             SenseManager.Dispose();
         }
 

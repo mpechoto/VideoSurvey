@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using AxWMPLib;
 using WMPLib;
@@ -46,10 +47,12 @@ namespace VideoSurvey
                     break;
                 case 1:    // Stopped
                     label1.Text = "Stopped";
-                    //Console.WriteLine("Stopped");
+                    //player.Dispose();
                     //When video stops, call next form to wait 5 seconds
                     Form5 form5 = new Form5(imageStream,fileManager);
                     form5.Show();
+                    player.close();
+                    //Thread.Sleep(200);
                     this.Visible = false;
                     break;
                 case 2:    // Paused

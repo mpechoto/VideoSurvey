@@ -21,6 +21,7 @@ namespace VideoSurvey
         public string NextVideo { get; set; }
         public int Cont = 0;
         public int Qtde = 0;
+        public bool TestSession { get; set; }
 
         public FileManager()
         {
@@ -100,13 +101,14 @@ namespace VideoSurvey
 
             //bypass to debug, remove 27 videos
             fileList.RemoveRange(2,27);
-
+            
             while (fileList.Count > 0)
             {
                 randomIndex = rand.Next(0, fileList.Count);//Choose a random object in the list
                 randomList.Add(fileList[randomIndex]);//add it to the new, random list
                 fileList.RemoveAt(randomIndex);//remove to avoid duplicates
             }
+            randomList.Add(VideosPath+@"\init\teste.mp4"); //Insert the Test Video in the last position
             return randomList; //return the new random list
         }
 
@@ -114,6 +116,8 @@ namespace VideoSurvey
         {
             File.WriteAllText(System.IO.Path.Combine(CurrentPath, file),
                 JsonConvert.SerializeObject(record,Formatting.Indented));
+            Record = record;// LoadRecordJson(System.IO.Path.Combine(CurrentPath, FileName));
+            Qtde = Record.Videos.Count - 1; //Verificar se dá erro
         }
 
         public Record LoadRecordJson(string filename)
@@ -142,23 +146,22 @@ namespace VideoSurvey
         }
 
         public string GetNextVideo()
-        {
-            if (Record == null)
-            {
-                Record = LoadRecordJson(System.IO.Path.Combine(CurrentPath, FileName));
-                NextVideo = Record.Videos[Cont++];
-                Qtde = Record.Videos.Count;
-                return NextVideo;
-            }
-            else 
-            {
-                if (Cont < Qtde)
-                {
-                    NextVideo = Record.Videos[Cont++];
-                    return NextVideo;
-                }
-                else return "end";
-            }          
+        {   //if (Record == null)
+            //{
+                //Record = LoadRecordJson(System.IO.Path.Combine(CurrentPath, FileName));
+            NextVideo = Record.Videos[Cont++];            
+            return NextVideo;
+            // return NextVideo;
+            //}
+            //else 
+            //{
+                //if (Cont < Qtde)
+               // {
+                //    NextVideo = Record.Videos[Cont++];
+                //    return NextVideo;
+                //}
+                //else return "end";
+           // }          
         }
 
         public void SaveSurvey()

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -36,8 +37,11 @@ namespace VideoSurvey
             {                
                 case 1:// Stopped                    
                     //When video stops, call next form to wait 5 seconds
+                    //player.Dispose();
                     Start2 start2 = new Start2(imageStream, fileManager);
                     start2.Show();
+                    player.close();
+                    //Thread.Sleep(200);
                     this.Visible = false;
                     break;                
                 default:                    
