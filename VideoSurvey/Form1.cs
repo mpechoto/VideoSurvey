@@ -30,7 +30,12 @@ namespace VideoSurvey
             imageStream.InitializeStream();
             label1.Text = imageStream.Status_pipeline;
 
-            fileManager = new FileManager();           
+            fileManager = new FileManager();
+            if (!fileManager.CheckDir)
+            {
+                MessageBox.Show(string.Format("Diretório SampleSource não encontrado em {0}", fileManager.ParentPath), "Sair",
+                 MessageBoxButtons.OK);                
+            }
             CheckDevices();
         }        
 
@@ -108,9 +113,9 @@ namespace VideoSurvey
 
             // p.StartInfo.WorkingDirectory = @"C:\Users\muril\AppData\Local\Android\Sdk\platform-tools";
             //p.StartInfo.WorkingDirectory = @"%AppData%\Local\Android\Sdk\platform-tools";????
-            p.StartInfo.FileName = "cmd.exe";
-             p.StartInfo.Arguments = "/k adb devices ";            
-              p.Start();
+            //p.StartInfo.FileName = "cmd.exe";
+             //p.StartInfo.Arguments = "/k adb devices ";            
+             // p.Start();
 
             // var stdout = new Cli("cmd -k adb devices").Execute().StandardOutput;
 

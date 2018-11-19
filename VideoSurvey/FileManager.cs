@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace VideoSurvey
@@ -22,12 +23,20 @@ namespace VideoSurvey
         public int Cont = 0;
         public int Qtde = 0;
         public bool TestSession { get; set; }
+        public bool CheckDir { get; set; }
 
         public FileManager()
         {
             //Get the Parent Path C:\..\..\..\..\VideoSurvey      
             ParentPath = GetMyRootPath(Directory.GetCurrentDirectory());
-            VideosPath = ParentPath + @"\SampleSource";
+
+            if (Directory.Exists(ParentPath + @"\SampleSource"))
+            {
+                VideosPath = ParentPath + @"\SampleSource";
+                CheckDir = true;
+            }
+            else
+                CheckDir = false;
 
             Answers = new List<Answers>();
         }
@@ -100,16 +109,16 @@ namespace VideoSurvey
             int randomIndex = 0;
 
             //bypass to debug, remove 27 videos
-            fileList.RemoveRange(2,27);
-            
+            //fileList.RemoveRange(2, 27);
+
             while (fileList.Count > 0)
             {
                 randomIndex = rand.Next(0, fileList.Count);//Choose a random object in the list
                 randomList.Add(fileList[randomIndex]);//add it to the new, random list
                 fileList.RemoveAt(randomIndex);//remove to avoid duplicates
             }
-            randomList.Add(VideosPath+@"\init\teste.mp4"); //Insert the Test Video in the last position
-            return randomList; //return the new random list
+            randomList.Add(VideosPath + @"\init\teste.mp4"); //Insert the Test Video in the last position
+            return randomList; //return the new random list            
         }
 
         public void WriteRecordJson(string file, Record record)
